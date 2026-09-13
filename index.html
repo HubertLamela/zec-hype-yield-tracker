@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ZCAT Yield Tracker · ZEC &amp; HYPE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #090b10;
+    --bg-2: #0e1219;
+    --panel: #121722;
+    --panel-2: #171d2b;
+    --line: rgba(255,255,255,.08);
+    --line-strong: rgba(255,255,255,.14);
+    --text: #e8edf7;
+    --muted: #8b95a8;
+    --faint: #5d6778;
+    --blue: #5b8cff;
+    --teal: #2ec4b6;
+    --gray: #9aa3b2;
+    --orange: #f0a202;
+    --red: #e85d4c;
+    --good: #3dd68c;
+    --warn: #f0a202;
+    --shadow: 0 20px 60px rgba(0,0,0,.35);
+    --radius: 16px;
+    --ub: var(--blue);
+    --be: var(--teal);
+    --ne: var(--gray);
+    --bu: var(--orange);
+    --uu: var(--red);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(91,140,255,.16), transparent 50%),
+      radial-gradient(900px 500px at 110% 0%, rgba(232,93,76,.10), transparent 45%),
+      radial-gradient(800px 400px at 50% 120%, rgba(46,196,182,.08), transparent 40%),
+      var(--bg);
+    color: var(--text);
+    font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input { font-family: inherit; }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 36px 22px 64px;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-family: Fraunces, Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+    letter-spacing: -.02em;
+    margin: 0 0 10px;
+    line-height: 1.15;
+  }
+  .subtitle {
+    max-width: 720px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0 0 26px;
+  }
+  .subtitle strong { color: var(--text); font-weight: 600; }
+  .tabs {
+    display: flex;
+    gap: 6px;
+    padding: 4px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    width: fit-content;
+    margin-bottom: 22px;
+  }
+  .tabs button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 9px 16px;
+    border-radius: 9px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .tabs button[aria-selected="true"] {
+    background: #1e2636;
+    color: var(--text);
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .filters button {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .filters button[aria-pressed="true"] {
+    background: #1a2744;
+    border-color: rgba(91,140,255,.45);
+    color: #dce7ff;
+  }
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .kpi, .card {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .kpi { padding: 16px 18px; }
+  .kpi .label {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 8px;
+  }
+  .kpi .value {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .kpi .hint { color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .kpi .usd-line {
+    margin-top: 8px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--good);
+  }
+  .kpi .spot-meta { color: var(--faint); font-size: 11px; margin-top: 4px; }
+  .card { padding: 18px 18px 14px; }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .card h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch {
+    width: 8px; height: 8px; border-radius: 99px;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent);
+    background: var(--c);
+  }
+  .chart-wrap { position: relative; height: min(420px, 58vw); min-height: 280px; }
+  .chart-wrap svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .grid-line { stroke: var(--line); stroke-width: 1; }
+  .axis-label {
+    fill: var(--faint);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+  }
+  .series { fill: none; stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
+  .dot { stroke: #0b0f16; stroke-width: 2; }
+  .tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: #0c111a;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12px;
+    min-width: 180px;
+    display: none;
+    z-index: 5;
+    box-shadow: var(--shadow);
+  }
+  .tooltip .t-title {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    color: var(--muted);
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .tooltip .row { display: flex; justify-content: space-between; gap: 16px; padding: 2px 0; }
+  .note {
+    margin: 14px 0 0;
+    padding: 11px 13px;
+    border-radius: 10px;
+    background: rgba(240,162,2,.08);
+    border: 1px solid rgba(240,162,2,.22);
+    color: #e6d3a3;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+  .note.hidden { display: none; }
+  .table-wrap { overflow-x: auto; margin-top: 4px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 760px;
+  }
+  th, td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--line);
+    text-align: right;
+    vertical-align: top;
+  }
+  th {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    font-weight: 500;
+  }
+  th:first-child, td:first-child { text-align: left; }
+  td:first-child .tf {
+    font-weight: 600;
+    display: block;
+  }
+  td:first-child .amt {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+  }
+  .usd {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+  }
+  .price {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+  }
+  th.s-ub { color: var(--ub); }
+  th.s-be { color: var(--be); }
+  th.s-ne { color: var(--ne); }
+  th.s-bu { color: var(--bu); }
+  th.s-uu { color: var(--uu); }
+  .pane[hidden] { display: none; }
+  .track-lead {
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.55;
+    max-width: 680px;
+    margin: 0 0 18px;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+  }
+  label {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  input {
+    width: 100%;
+    background: #0c111a;
+    border: 1px solid var(--line-strong);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+  }
+  input:focus { border-color: rgba(91,140,255,.7); }
+  .btn {
+    appearance: none;
+    border: 0;
+    background: #2a4dcc;
+    color: white;
+    font-weight: 600;
+    padding: 11px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13.5px;
+    white-space: nowrap;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn.ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--line-strong);
+  }
+  .btn.danger {
+    background: transparent;
+    color: #f3a49c;
+    border: 1px solid rgba(232,93,76,.35);
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .empty {
+    margin-top: 18px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 14px;
+    padding: 36px 18px;
+    text-align: center;
+    color: var(--muted);
+  }
+  .empty h3 { margin: 0 0 6px; color: var(--text); font-size: 16px; }
+  .empty p { margin: 0 auto; max-width: 420px; font-size: 13.5px; line-height: 1.5; }
+  .entries { margin-top: 18px; overflow-x: auto; }
+  .entries table { min-width: 640px; }
+  .delta-pos { color: var(--good); }
+  .delta-neg { color: var(--red); }
+  footer.disc {
+    margin-top: 28px;
+    color: var(--faint);
+    font-size: 12px;
+    line-height: 1.5;
+    max-width: 820px;
+  }
+  .friday {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  @media (max-width: 820px) {
+    .kpis { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr 1fr; }
+    .form-grid .span-all { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">ZCAT yield · ZEC / HYPE accumulation</div>
+    <h1>ZCAT Yield Tracker · ZEC &amp; HYPE</h1>
+    <p class="subtitle">
+      Accumulation from week&nbsp;1 earnings of <strong>1.62605 ZEC + 21.40849 HYPE</strong>,
+      continuing at that weekly rate from a starting balance of 0, then marked to market
+      under five illustrative price scenarios.
+    </p>
+    <p class="subtitle" id="live-spots" style="margin-top:-12px">
+      Live spots (2026-09-13 14:51 UTC): <strong>ZEC $1,095.98</strong> · <strong>HYPE $78.4250</strong> (Coinbase).
+      Baseline cold ZEC ≈ <strong>60.00</strong>. HYPE OKX pending on-chain. Quant auto-updates Fridays.
+    </p>
+
+
+    <div class="tabs" role="tablist" aria-label="Primary">
+      <button type="button" role="tab" id="tab-proj" aria-controls="pane-proj" aria-selected="true">Projections</button>
+      <button type="button" role="tab" id="tab-track" aria-controls="pane-track" aria-selected="false">Tracking</button>
+    </div>
+
+    <section class="pane" id="pane-proj" role="tabpanel" aria-labelledby="tab-proj">
+      <div class="filters" role="group" aria-label="Asset filter">
+        <button type="button" data-view="portfolio" aria-pressed="true">Portfolio</button>
+        <button type="button" data-view="zec" aria-pressed="false">ZEC Only</button>
+        <button type="button" data-view="hype" aria-pressed="false">HYPE Only</button>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi">
+          <div class="label">Week 1 earned</div>
+          <div class="value">1.62605 ZEC + 21.40849 HYPE</div>
+          <div class="hint">Run rate held constant in every scenario</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Token path</div>
+          <div class="value">Linear weekly accrual</div>
+          <div class="hint">4 / 12 / 24 / 52 / 104 / 156 weeks</div>
+        </div>
+        <div class="kpi">
+          <div class="label">3-year span</div>
+          <div class="value" id="span3y">$11,984 → $176.7M</div>
+          <div class="hint">Ultra bearish vs ultra bullish (combined)</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2 id="chart-title">Projected portfolio value</h2>
+          <div class="legend">
+            <span><i class="swatch" style="--c:var(--ub)"></i> Ultra bearish</span>
+            <span><i class="swatch" style="--c:var(--be)"></i> Bearish</span>
+            <span><i class="swatch" style="--c:var(--ne)"></i> Neutral</span>
+            <span><i class="swatch" style="--c:var(--bu)"></i> Bullish</span>
+            <span><i class="swatch" style="--c:var(--uu)"></i> Ultra bullish</span>
+          </div>
+        </div>
+        <div class="chart-wrap" id="chart-wrap">
+          <svg id="chart" viewBox="0 0 1000 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Scenario yield chart"></svg>
+          <div class="tooltip" id="tooltip"></div>
+        </div>
+      </div>
+
+      <p class="note hidden" id="split-note">
+        ZEC-only / HYPE-only dollars split each official portfolio total using reference
+        spots of <strong>$1,100 / ZEC</strong> and <strong>$85 / HYPE</strong> (~49.6% / 50.4%),
+        assuming both tokens follow the same scenario return. Price targets are implied
+        (allocated USD ÷ tokens). Token amounts are exact; dollar split is an estimate.
+      </p>
+
+      <div class="card" style="margin-top:16px">
+        <div class="card-head">
+          <h2>Projection Data</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead id="thead"></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-track" role="tabpanel" aria-labelledby="tab-track" hidden>
+      <p class="track-lead">
+        Quant auto-pulls your Solana HYPE + ZEC yield wallets into Friday check-ins (no manual form needed). You can still log manually. The table shows day-over-day change and
+        <strong>Δ / day</strong> between check-ins. Week-1 run rate implies
+        <strong>0.2323 ZEC + 3.0584 HYPE per day</strong> (÷7). Entries stay in this browser
+        (<span class="usd">localStorage</span>); Quant also keeps a durable Friday log.
+      </p>
+      <div class="kpis" id="daily-kpis" style="margin-bottom:16px">
+        <div class="kpi">
+          <div class="label">Implied daily (week-1)</div>
+          <div class="value" id="kpi-daily-run">0.2323 ZEC · 3.0584 HYPE</div>
+          <div class="hint" id="kpi-daily-run-usd">USD · loading live spots…</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Latest daily pace</div>
+          <div class="value" id="kpi-daily-pace">—</div>
+          <div class="hint" id="kpi-daily-pace-usd">From last two check-ins</div>
+        </div>
+        <div class="kpi">
+          <div class="label">vs run-rate</div>
+          <div class="value" id="kpi-vs-run">—</div>
+          <div class="hint">Actual Δ/day ÷ implied</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Add check-in</h2></div>
+        <form id="track-form" class="form-grid">
+          <div>
+            <label for="date">Date</label>
+            <input id="date" name="date" type="date" required />
+            <div class="friday">
+              <button type="button" class="btn ghost" id="use-today">Use today</button>
+              <button type="button" class="btn ghost" id="last-friday">Use last Friday</button>
+            </div>
+          </div>
+          <div>
+            <label for="zec">ZEC balance</label>
+            <input id="zec" name="zec" type="number" min="0" step="any" placeholder="1.62605" required />
+          </div>
+          <div>
+            <label for="hype">HYPE balance</label>
+            <input id="hype" name="hype" type="number" min="0" step="any" placeholder="21.40849" required />
+          </div>
+          <div class="span-all">
+            <button type="submit" class="btn">Save check-in</button>
+          </div>
+        </form>
+      </div>
+      <div id="track-body"></div>
+    </section>
+
+    <footer class="disc">
+      Scenario projections are illustrative, not financial advice. Token counts assume the
+      week-1 yield rate continues with no pause; dollar figures are hypothetical mark-to-market
+      paths, not forecasts. Do not treat this page as a recommendation to buy, sell, or hold
+      ZEC, HYPE, or any other asset.
+    </footer>
+  </div>
+
+<script>
+(function () {
+  const REF_ZEC_FALLBACK = 1091.02;
+  let REF_ZEC = REF_ZEC_FALLBACK;
+  const REF_HYPE_FALLBACK = 78.345;
+  let REF_HYPE = REF_HYPE_FALLBACK;
+  const STORAGE_KEY = "zec-hype-yield-tracking-v1";
+  const AUTO_ENTRIES = [{"id": "auto-2026-09-13", "date": "2026-09-13", "zec": 1.95904728, "hype": 25.433734934, "auto": true, "note": "ATAs under Phantom \u2014 not empty wallets. HYPE mint 98sMh\u2026 Mh5g; ZEC mint A7bd\u2026 QXaS."}]; HYPE not available on-chain yet",
+    "hypeMissing": true
+  }
+];
+
+  const WEEK1_ZEC = 1.62605;
+  const WEEK1_HYPE = 21.40849;
+  const DAILY_ZEC = WEEK1_ZEC / 7;
+  const DAILY_HYPE = WEEK1_HYPE / 7;
+
+  const SCENARIOS = [
+    { key: "ub", label: "Ultra Bearish", cls: "s-ub", color: "#5b8cff" },
+    { key: "be", label: "Bearish", cls: "s-be", color: "#2ec4b6" },
+    { key: "ne", label: "Neutral", cls: "s-ne", color: "#9aa3b2" },
+    { key: "bu", label: "Bullish", cls: "s-bu", color: "#f0a202" },
+    { key: "uu", label: "Ultra Bullish", cls: "s-uu", color: "#e85d4c" }
+  ];
+
+  const ROWS = [
+    { tf: "1 Month",  x: "1M", weeks: 4,   zec: 6.50,   hype: 85.6,  values: [13074, 13953, 14839, 15753, 16979] },
+    { tf: "3 Months", x: "3M", weeks: 12,  zec: 19.51,  hype: 256.9, values: [31596, 38408, 46186, 55289, 69269] },
+    { tf: "6 Months", x: "6M", weeks: 24,  zec: 39.03,  hype: 513.8, values: [45709, 67538, 97630, 140101, 220339] },
+    { tf: "1 Year",   x: "1Y", weeks: 52,  zec: 84.53,  hype: 1113.2, values: [51898, 113265, 236364, 489475, 1220037] },
+    { tf: "2 Years",  x: "2Y", weeks: 104, zec: 169.07, hype: 2226.5, values: [28680, 136427, 590943, 2590687, 16570337] },
+    { tf: "3 Years",  x: "3Y", weeks: 156, zec: 253.60, hype: 3339.7, values: [11984, 124091, 1109856, 10515751, 176717082] }
+  ];
+
+  let view = "portfolio";
+
+  function zecWeight(row) {
+    const z = row.zec * REF_ZEC;
+    const h = row.hype * REF_HYPE;
+    return z / (z + h);
+  }
+
+  function split(row, i) {
+    const total = row.values[i];
+    const w = zecWeight(row);
+    return {
+      total,
+      zecUsd: total * w,
+      hypeUsd: total * (1 - w),
+      zecPx: (total * w) / row.zec,
+      hypePx: (total * (1 - w)) / row.hype
+    };
+  }
+
+  function usd(n) {
+    const v = Math.round(n);
+    return "$" + v.toLocaleString("en-US");
+  }
+
+  function usdShort(n) {
+    const abs = Math.abs(n);
+    if (abs >= 1e9) return "$" + (n / 1e9).toFixed(2) + "B";
+    if (abs >= 1e6) return "$" + (n / 1e6).toFixed(n >= 1e7 ? 1 : 2) + "M";
+    if (abs >= 1e4) return "$" + Math.round(n / 1000) + "k";
+    return usd(n);
+  }
+
+  function px(n) {
+    if (!isFinite(n) || n <= 0) return "—";
+    if (n >= 1000) return "$" + Math.round(n).toLocaleString("en-US");
+    return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function fmtAmt(n, digits) {
+    return n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: digits });
+  }
+
+  function cellUsd(row, i) {
+    if (view === "zec") return split(row, i).zecUsd;
+    if (view === "hype") return split(row, i).hypeUsd;
+    return row.values[i];
+  }
+
+  function renderTable() {
+    const thead = document.getElementById("thead");
+    const tbody = document.getElementById("tbody");
+    const extra = view === "zec" || view === "hype";
+    const targetName = view === "zec" ? "ZEC price target" : view === "hype" ? "HYPE price target" : "";
+    thead.innerHTML = "<tr><th>Timeframe</th>" +
+      SCENARIOS.map(s => `<th class="${s.cls}">${s.label}${
+        targetName ? `<div class="price" style="margin-top:4px;text-transform:none;letter-spacing:0;font-size:10px">USD · ${targetName}</div>` : ""
+      }</th>`).join("") +
+      "</tr>";
+    tbody.innerHTML = ROWS.map(row => {
+      const amt = view === "zec"
+        ? fmtAmt(row.zec, 2) + " ZEC"
+        : view === "hype"
+          ? fmtAmt(row.hype, 1) + " HYPE"
+          : fmtAmt(row.zec, 2) + " ZEC + " + fmtAmt(row.hype, 1) + " HYPE";
+      const cells = row.values.map((_, i) => {
+        const s = split(row, i);
+        const value = cellUsd(row, i);
+        const target = view === "zec" ? px(s.zecPx) : view === "hype" ? px(s.hypePx) : "";
+        return `<td><span class="usd">${usd(value)}</span>${
+          extra ? `<span class="price">${view.toUpperCase()} @ ${target}</span>` : ""
+        }</td>`;
+      }).join("");
+      return `<tr><td><span class="tf">${row.tf}</span><span class="amt">${amt}</span></td>${cells}</tr>`;
+    }).join("");
+  }
+
+  /* ---------- log-ish SVG chart ---------- */
+  const svg = document.getElementById("chart");
+  const tooltip = document.getElementById("tooltip");
+  const wrap = document.getElementById("chart-wrap");
+  const VB = { w: 1000, h: 420 };
+  const PAD = { l: 72, r: 18, t: 18, b: 36 };
+
+  function logY(v, yMin, yMax) {
+    const t = (Math.log10(v) - yMin) / (yMax - yMin);
+    return PAD.t + (1 - t) * (VB.h - PAD.t - PAD.b);
+  }
+  function xAt(i) {
+    const inner = VB.w - PAD.l - PAD.r;
+    return PAD.l + (i / (ROWS.length - 1)) * inner;
+  }
+
+  function niceLogs(minV, maxV) {
+    const ticks = [];
+    const start = Math.floor(Math.log10(minV));
+    const end = Math.ceil(Math.log10(maxV));
+    for (let e = start; e <= end; e++) {
+      [1, 2, 5].forEach(m => {
+        const v = m * Math.pow(10, e);
+        if (v >= minV * 0.95 && v <= maxV * 1.05) ticks.push(v);
+      });
+    }
+    return ticks;
+  }
+
+  let hoverIdx = null;
+
+  function seriesValues() {
+    return SCENARIOS.map((_, si) => ROWS.map(row => cellUsd(row, si)));
+  }
+
+  function renderChart() {
+    const series = seriesValues();
+    const all = series.flat();
+    const minV = Math.min(...all);
+    const maxV = Math.max(...all);
+    const yMin = Math.log10(minV / 1.25);
+    const yMax = Math.log10(maxV * 1.35);
+    const ticks = niceLogs(Math.pow(10, yMin), Math.pow(10, yMax));
+
+    const grid = ticks.map(v => {
+      const y = logY(v, yMin, yMax);
+      return `<line class="grid-line" x1="${PAD.l}" x2="${VB.w - PAD.r}" y1="${y}" y2="${y}" />
+        <text class="axis-label" x="${PAD.l - 10}" y="${y + 3}" text-anchor="end">${usdShort(v)}</text>`;
+    }).join("");
+
+    const xLabels = ROWS.map((row, i) => {
+      const x = xAt(i);
+      return `<text class="axis-label" x="${x}" y="${VB.h - 10}" text-anchor="middle">${row.x}</text>`;
+    }).join("");
+
+    const lines = series.map((vals, si) => {
+      const d = vals.map((v, i) => `${i ? "L" : "M"}${xAt(i).toFixed(1)},${logY(v, yMin, yMax).toFixed(1)}`).join(" ");
+      const dots = vals.map((v, i) => {
+        const active = hoverIdx === i ? ' r="5.5"' : ' r="3.6"';
+        return `<circle class="dot" cx="${xAt(i)}" cy="${logY(v, yMin, yMax)}"${active} fill="${SCENARIOS[si].color}" />`;
+      }).join("");
+      return `<path class="series" d="${d}" stroke="${SCENARIOS[si].color}" />${dots}`;
+    }).join("");
+
+    let hover = "";
+    if (hoverIdx != null) {
+      const x = xAt(hoverIdx);
+      hover = `<line class="grid-line" x1="${x}" x2="${x}" y1="${PAD.t}" y2="${VB.h - PAD.b}" stroke-dasharray="3 4" />`;
+    }
+
+    svg.innerHTML = `<rect x="0" y="0" width="${VB.w}" height="${VB.h}" fill="transparent" />${grid}${hover}${lines}${xLabels}`;
+    svg.dataset.ymin = yMin;
+    svg.dataset.ymax = yMax;
+  }
+
+  function showTip(i, clientX, clientY) {
+    hoverIdx = i;
+    const row = ROWS[i];
+    const lines = SCENARIOS.map((s, si) => {
+      const v = cellUsd(row, si);
+      const extra = view === "zec"
+        ? ` · ${px(split(row, si).zecPx)}`
+        : view === "hype"
+          ? ` · ${px(split(row, si).hypePx)}`
+          : "";
+      return `<div class="row"><span style="color:${s.color}">${s.label}</span><span class="usd">${usd(v)}${extra}</span></div>`;
+    }).join("");
+    const amt = view === "zec"
+      ? fmtAmt(row.zec, 2) + " ZEC"
+      : view === "hype"
+        ? fmtAmt(row.hype, 1) + " HYPE"
+        : fmtAmt(row.zec, 2) + " ZEC + " + fmtAmt(row.hype, 1) + " HYPE";
+    tooltip.innerHTML = `<div class="t-title">${row.tf} · ${amt}</div>${lines}`;
+    tooltip.style.display = "block";
+    const rect = wrap.getBoundingClientRect();
+    let left = clientX - rect.left + 14;
+    let top = clientY - rect.top + 14;
+    tooltip.style.left = "0px";
+    tooltip.style.top = "0px";
+    const tw = tooltip.offsetWidth;
+    const th = tooltip.offsetHeight;
+    if (left + tw > rect.width - 8) left = clientX - rect.left - tw - 12;
+    if (top + th > rect.height - 8) top = clientY - rect.top - th - 12;
+    tooltip.style.left = Math.max(8, left) + "px";
+    tooltip.style.top = Math.max(8, top) + "px";
+    renderChart();
+  }
+
+  wrap.addEventListener("mousemove", (e) => {
+    const rect = wrap.getBoundingClientRect();
+    const t = (e.clientX - rect.left) / rect.width;
+    const innerL = PAD.l / VB.w;
+    const innerR = (VB.w - PAD.r) / VB.w;
+    const u = (t - innerL) / (innerR - innerL);
+    const i = Math.max(0, Math.min(ROWS.length - 1, Math.round(u * (ROWS.length - 1))));
+    showTip(i, e.clientX, e.clientY);
+  });
+  wrap.addEventListener("mouseleave", () => {
+    hoverIdx = null;
+    tooltip.style.display = "none";
+    renderChart();
+  });
+
+  function setView(next) {
+    view = next;
+    document.querySelectorAll(".filters button").forEach(btn => {
+      btn.setAttribute("aria-pressed", btn.dataset.view === view ? "true" : "false");
+    });
+    document.getElementById("split-note").classList.toggle("hidden", view === "portfolio");
+    document.getElementById("chart-title").textContent =
+      view === "zec" ? "Projected ZEC value (estimated split)"
+      : view === "hype" ? "Projected HYPE value (estimated split)"
+      : "Projected portfolio value";
+    const last = ROWS[ROWS.length - 1];
+    const lo = cellUsd(last, 0);
+    const hi = cellUsd(last, 4);
+    document.getElementById("span3y").textContent = usd(lo) + " → " + usdShort(hi);
+    renderTable();
+    renderChart();
+  }
+
+  document.querySelectorAll(".filters button").forEach(btn => {
+    btn.addEventListener("click", () => setView(btn.dataset.view));
+  });
+
+  /* ---------- tabs ---------- */
+  function setTab(name) {
+    const proj = name === "proj";
+    document.getElementById("tab-proj").setAttribute("aria-selected", proj ? "true" : "false");
+    document.getElementById("tab-track").setAttribute("aria-selected", proj ? "false" : "true");
+    document.getElementById("pane-proj").hidden = !proj;
+    document.getElementById("pane-track").hidden = proj;
+  }
+  document.getElementById("tab-proj").addEventListener("click", () => setTab("proj"));
+  document.getElementById("tab-track").addEventListener("click", () => setTab("track"));
+
+  /* ---------- tracking ---------- */
+  function lastFridayISO(from) {
+    const d = from ? new Date(from) : new Date();
+    const day = d.getDay();
+    const diff = (day - 5 + 7) % 7;
+    d.setDate(d.getDate() - diff);
+    return toISODate(d);
+  }
+
+  function toISODate(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const da = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${da}`;
+  }
+
+  function todayISO() {
+    return toISODate(new Date());
+  }
+
+  function daysBetween(a, b) {
+    const ms = Date.parse(b + "T00:00:00") - Date.parse(a + "T00:00:00");
+    return Math.max(1, Math.round(ms / 86400000));
+  }
+
+  function pace(cur, prev, days) {
+    if (prev == null || !days) return null;
+    return (cur - prev) / days;
+  }
+
+  function fmtPace(n, digits) {
+    if (n == null || !isFinite(n)) return "—";
+    const sign = n > 0 ? "+" : "";
+    return sign + n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: digits });
+  }
+
+  let liveSpotMeta = "fallback spots";
+
+  function money(n) {
+    if (n == null || !isFinite(n)) return "—";
+    const abs = Math.abs(n);
+    const sign = n < 0 ? "-" : "";
+    if (abs >= 1000) return sign + "$" + Math.round(abs).toLocaleString("en-US");
+    return sign + "$" + abs.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function updateImpliedDailyUsd() {
+    const zUsd = DAILY_ZEC * REF_ZEC;
+    const hUsd = DAILY_HYPE * REF_HYPE;
+    const el = document.getElementById("kpi-daily-run-usd");
+    if (!el) return;
+    el.innerHTML = `<div class="usd-line">${money(zUsd)} ZEC · ${money(hUsd)} HYPE · <strong>${money(zUsd + hUsd)}/day</strong></div>
+      <div class="spot-meta">${liveSpotMeta} · ZEC ${money(REF_ZEC)} · HYPE ${money(REF_HYPE)}</div>`;
+  }
+
+  async function fetchLiveSpots() {
+    const banner = document.getElementById("live-spots");
+    try {
+      const [zRes, hRes] = await Promise.all([
+        fetch("https://api.coinbase.com/v2/prices/ZEC-USD/spot"),
+        fetch("https://api.coinbase.com/v2/prices/HYPE-USD/spot")
+      ]);
+      if (!zRes.ok || !hRes.ok) throw new Error("spot http " + zRes.status + "/" + hRes.status);
+      const zj = await zRes.json();
+      const hj = await hRes.json();
+      REF_ZEC = Number(zj.data.amount);
+      REF_HYPE = Number(hj.data.amount);
+      const ts = new Date().toISOString().replace("T", " ").replace(/\.\d+Z$/, " UTC");
+      liveSpotMeta = "Coinbase live · " + ts;
+      if (banner) {
+        banner.innerHTML = `Live spots (${ts}): <strong>ZEC ${money(REF_ZEC)}</strong> · <strong>HYPE ${money(REF_HYPE)}</strong> (Coinbase).
+      Baseline cold ZEC ≈ <strong>60.00</strong>. HYPE OKX pending on-chain. Quant auto-updates Fridays.`;
+      }
+    } catch (e) {
+      liveSpotMeta = "offline · using fallback spots";
+      if (banner) {
+        banner.innerHTML = `Spots unavailable — using fallback <strong>ZEC ${money(REF_ZEC)}</strong> · <strong>HYPE ${money(REF_HYPE)}</strong>.`;
+      }
+    }
+    updateImpliedDailyUsd();
+    renderTracking();
+  }
+
+
+  function loadEntries() {
+    let local = [];
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      local = Array.isArray(arr) ? arr : [];
+    } catch (e) {
+      local = [];
+    }
+    const auto = (typeof AUTO_ENTRIES !== "undefined" && Array.isArray(AUTO_ENTRIES)) ? AUTO_ENTRIES : [];
+    const byDate = new Map();
+    // auto first, then local overrides same date
+    auto.forEach(e => byDate.set(e.date, e));
+    local.forEach(e => byDate.set(e.date, e));
+    return Array.from(byDate.values());
+  }
+
+  function saveEntries(entries) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  }
+
+  function num(n) {
+    return Number(n).toLocaleString("en-US", { maximumFractionDigits: 5 });
+  }
+
+  function delta(cur, prev) {
+    if (prev == null) return "";
+    const d = cur - prev;
+    const cls = d >= 0 ? "delta-pos" : "delta-neg";
+    const sign = d >= 0 ? "+" : "";
+    return `<span class="${cls}">${sign}${num(d)}</span>`;
+  }
+
+  function renderTracking() {
+    const entries = loadEntries().slice().sort((a, b) => a.date.localeCompare(b.date));
+    const body = document.getElementById("track-body");
+    const kpiPace = document.getElementById("kpi-daily-pace");
+    const kpiVs = document.getElementById("kpi-vs-run");
+
+    const paceUsdEl = document.getElementById("kpi-daily-pace-usd");
+    updateImpliedDailyUsd();
+    if (entries.length >= 2) {
+      const a = entries[entries.length - 2];
+      const b = entries[entries.length - 1];
+      const days = daysBetween(a.date, b.date);
+      const pz = pace(b.zec, a.zec, days);
+      const ph = pace(b.hype, a.hype, days);
+      kpiPace.textContent = fmtPace(pz, 4) + " ZEC · " + fmtPace(ph, 3) + " HYPE / day";
+      const zUsd = pz * REF_ZEC;
+      const hUsd = ph * REF_HYPE;
+      if (paceUsdEl) {
+        paceUsdEl.innerHTML = `<div class="usd-line">${money(zUsd)} · ${money(hUsd)} · <strong>${money(zUsd + hUsd)}/day</strong></div>
+          <div class="spot-meta">${days}d gap · ${liveSpotMeta}</div>`;
+      }
+      const vz = pz / DAILY_ZEC;
+      const vh = ph / DAILY_HYPE;
+      kpiVs.textContent = (vz * 100).toFixed(0) + "% ZEC · " + (vh * 100).toFixed(0) + "% HYPE";
+    } else {
+      kpiPace.textContent = "Need 2+ check-ins";
+      kpiVs.textContent = "—";
+      if (paceUsdEl) paceUsdEl.textContent = "From last two check-ins";
+    }
+
+    if (!entries.length) {
+      body.innerHTML = `<div class="empty">
+        <h3>No check-ins yet</h3>
+        <p>Add a date plus ZEC and HYPE wallet balances. Daily or Friday both work — Δ/day appears once you have two entries.</p>
+      </div>`;
+      return;
+    }
+    const rows = entries.map((e, i) => {
+      const prev = i ? entries[i - 1] : null;
+      const days = prev ? daysBetween(prev.date, e.date) : null;
+      const pz = prev ? pace(e.zec, prev.zec, days) : null;
+      const ph = prev ? pace(e.hype, prev.hype, days) : null;
+      const mv = e.zec * REF_ZEC + e.hype * REF_HYPE;
+      const gap = days != null ? `<div class="price">${days}d gap</div>` : "";
+      return `<tr>
+        <td><span class="tf">${e.date}</span>${gap}</td>
+        <td class="usd">${num(e.zec)}<div class="price">${delta(e.zec, prev && prev.zec)}</div></td>
+        <td class="usd">${num(e.hype)}<div class="price">${delta(e.hype, prev && prev.hype)}</div></td>
+        <td class="usd">${prev ? fmtPace(pz, 4) + " / " + fmtPace(ph, 3) : "—"}<div class="price">${prev ? money(pz * REF_ZEC) + " · " + money(ph * REF_HYPE) + " · " + money(pz * REF_ZEC + ph * REF_HYPE) + "/day" : "ZEC · HYPE per day"}</div></td>
+        <td class="usd">${usd(mv)}<div class="price">spot mark</div></td>
+        <td><button type="button" class="btn danger" data-del="${e.id}">Delete</button></td>
+      </tr>`;
+    }).join("");
+    body.innerHTML = `<div class="card entries" style="margin-top:16px">
+      <div class="card-head"><h2>Recorded balances</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Date</th><th>ZEC balance</th><th>HYPE balance</th>
+            <th>Δ / day</th>
+            <th>Est. at ref. spots</th><th></th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <p class="price" style="padding:8px 2px 4px">Implied daily from week-1: ${DAILY_ZEC.toFixed(4)} ZEC + ${DAILY_HYPE.toFixed(4)} HYPE. Est. USD uses live-ish REF spots ($${REF_ZEC} ZEC / $${REF_HYPE} HYPE).</p>
+    </div>`;
+    body.querySelectorAll("[data-del]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const next = loadEntries().filter(e => e.id !== btn.dataset.del);
+        saveEntries(next);
+        renderTracking();
+      });
+    });
+  }
+
+  document.getElementById("date").value = todayISO();
+  document.getElementById("use-today").addEventListener("click", () => {
+    document.getElementById("date").value = todayISO();
+  });
+  document.getElementById("last-friday").addEventListener("click", () => {
+    document.getElementById("date").value = lastFridayISO();
+  });
+
+  document.getElementById("track-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const date = document.getElementById("date").value;
+    const zec = Number(document.getElementById("zec").value);
+    const hype = Number(document.getElementById("hype").value);
+    if (!date || !(zec >= 0) || !(hype >= 0)) return;
+    const entries = loadEntries().filter(x => x.date !== date);
+    entries.push({
+      id: date + "-" + Math.random().toString(36).slice(2, 8),
+      date, zec, hype, savedAt: Date.now()
+    });
+    saveEntries(entries);
+    document.getElementById("zec").value = "";
+    document.getElementById("hype").value = "";
+    renderTracking();
+  });
+
+  setView("portfolio");
+  renderTracking();
+  updateImpliedDailyUsd();
+  fetchLiveSpots();
+  setInterval(fetchLiveSpots, 60 * 1000);
+})();
+</script>
+</body>
+</html>

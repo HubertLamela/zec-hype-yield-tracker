@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "asset": "ZEC+HYPE",
+  "notes": "Friday accumulation tracker. ZEC side may include ZCAT tax distributions + cold wallet; HYPE from OKX/Hyperliquid when balances known.",
+  "week1RunRate": {
+    "zec": 1.62605,
+    "hype": 21.40849
+  },
+  "refSpots": {
+    "zec": 1095.98,
+    "hype": 78.425
+  },
+  "wallets": {
+    "phantomOwner": {
+      "label": "Phantom (owner)",
+      "address": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "chain": "solana",
+      "role": "friday-auto-owner"
+    },
+    "hypeAta": {
+      "label": "HYPE token account",
+      "address": "oVBKQAqXVrJmRKjN5QxA9Avy7fs5a4pdg9qtLo3u5od",
+      "mint": "98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g",
+      "chain": "solana",
+      "role": "ata"
+    },
+    "zecAta": {
+      "label": "ZEC token account",
+      "address": "AfXmyDjAZ6zh52ntAskTdcSu2VgDoVZ4oeG9FNvsBMvc",
+      "mint": "A7bdiYdS5GjqGFtxf17ppRHtDKPkkRqbKtR27dxvQXaS",
+      "chain": "solana",
+      "role": "ata"
+    },
+    "zecCold": {
+      "label": "ZEC 1 - COLD",
+      "address": "t1JECiYpXQ4uTZYgHvtDpZXbmPZ8jTohPhe",
+      "chain": "zcash",
+      "role": "cold-reserve"
+    }
+  },
+  "entries": [
+    {
+      "id": "auto-2026-09-13",
+      "date": "2026-09-13",
+      "zec": 1.95904728,
+      "hype": 25.433734934,
+      "source": "auto-ata-getAccountInfo",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1090.9460955176553,
+        "hype": 78.310285878
+      },
+      "usd": {
+        "zec": 2137.214981050483,
+        "hype": 1991.7230536268155,
+        "total": 4128.938034677299
+      },
+      "savedAt": "2026-09-13 15:30 UTC",
+      "note": "ATAs under Phantom \u2014 not empty wallets. HYPE mint 98sMh\u2026 Mh5g; ZEC mint A7bd\u2026 QXaS."
+    }
+  ],
+  "liveSpots": {
+    "zecSolana": 1090.9460955176553,
+    "hypeSolana": 78.310285878,
+    "source": "DexPaprika solana tokens",
+    "fetchedAt": "2026-09-13 15:30 UTC"
+  },
+  "autoPopulate": {
+    "enabled": true,
+    "cadence": "Friday 9:00 America/New_York",
+    "routine": "zec-hype-friday-yield-check-in",
+    "pulls": [
+      "zecYieldSol",
+      "hypeYieldSol",
+      "spots"
+    ],
+    "optionalColdZec": true
+  }
+}
