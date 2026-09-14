@@ -57,13 +57,32 @@
       },
       "savedAt": "2026-09-13 15:30 UTC",
       "note": "ATAs under Phantom \u2014 not empty wallets. HYPE mint 98sMh\u2026 Mh5g; ZEC mint A7bd\u2026 QXaS."
+    },
+    {
+      "id": "snap-2026-09-14-1336et",
+      "date": "2026-09-14",
+      "zec": 2.06481493,
+      "hype": 26.612830152,
+      "source": "manual-catchup via https://solana-rpc.publicnode.com",
+      "spots": {
+        "zec": 1138.1,
+        "hype": 80.155,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 2349.9658718329997,
+        "hype": 2133.1514008335603,
+        "total": 4483.11727266656
+      },
+      "savedAt": "2026-09-14 13:38 UTC",
+      "note": "Catch-up after missed morning; weekends enabled"
     }
   ],
   "liveSpots": {
-    "zecSolana": 1090.9460955176553,
-    "hypeSolana": 78.310285878,
-    "source": "DexPaprika solana tokens",
-    "fetchedAt": "2026-09-13 15:30 UTC"
+    "zec": 1138.1,
+    "hype": 80.155,
+    "source": "Coinbase",
+    "fetchedAt": "2026-09-14 13:38 UTC"
   },
   "autoPopulate": {
     "enabled": true,
@@ -75,5 +94,19 @@
       "spots"
     ],
     "optionalColdZec": true
+  },
+  "coldZec": {
+    "address": "t1JECiYpXQ4uTZYgHvtDpZXbmPZ8jTohPhe",
+    "balance": 59.9999774,
+    "includeInYieldTotals": false,
+    "role": "cold-reserve",
+    "updatedAt": "2026-09-14T15:30:00Z"
+  },
+  "features": {
+    "dodWow": true,
+    "priceVsQtySplit": true,
+    "coldZecSecondLine": true,
+    "gistDesktopAutoRefresh": true,
+    "pagesUrl": "https://hubertlamela.github.io/zec-hype-yield-tracker/"
   }
 }
