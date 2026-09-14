@@ -1011,12 +1011,12 @@
       const dodBase = findEntryNear(entries, latest.date, 1);
       const dod = deltaBlock(latest, dodBase && dodBase.date !== latest.date ? dodBase : null, 4, 3);
       if (dodEl) dodEl.textContent = dod.tokens;
-      if (dodUsd) dodUsd.innerHTML = dod.baseDate ? `<div class="usd-line">${dod.usdHint}</div><div class="spot-meta">vs ${dod.baseDate}</div>` : dod.usdHint;
+      if (dodUsd) dodUsd.innerHTML = dod.baseDate ? `${dod.usdHint}<div class="spot-meta">vs ${dod.baseDate}</div>` : dod.usdHint;
 
       const wowBase = findEntryNear(entries, latest.date, 7);
       const wow = deltaBlock(latest, wowBase && wowBase.date !== latest.date ? wowBase : null, 4, 3);
       if (wowEl) wowEl.textContent = wow.tokens;
-      if (wowUsd) wowUsd.innerHTML = wow.baseDate ? `<div class="usd-line">${wow.usdHint}</div><div class="spot-meta">vs ${wow.baseDate}</div>` : "Need ~7d history";
+      if (wowUsd) wowUsd.innerHTML = wow.baseDate ? `${wow.usdHint}<div class="spot-meta">vs ${wow.baseDate}</div>` : "Need ~7d history";
     } else {
       if (dodEl) dodEl.textContent = "—";
       if (wowEl) wowEl.textContent = "—";
