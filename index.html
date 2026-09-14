@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-cache-bust="20260913161440">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -468,6 +468,16 @@
           <div class="hint" id="kpi-daily-run-usd">USD · loading live spots…</div>
         </div>
         <div class="kpi">
+          <div class="label">Day over day</div>
+          <div class="value" id="kpi-dod">—</div>
+          <div class="hint" id="kpi-dod-usd">Latest vs ~24h earlier</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Week over week</div>
+          <div class="value" id="kpi-wow">—</div>
+          <div class="hint" id="kpi-wow-usd">Latest vs ~7d earlier</div>
+        </div>
+        <div class="kpi">
           <div class="label">Latest daily pace</div>
           <div class="value" id="kpi-daily-pace">—</div>
           <div class="hint" id="kpi-daily-pace-usd">From last two check-ins</div>
@@ -476,6 +486,11 @@
           <div class="label">vs run-rate</div>
           <div class="value" id="kpi-vs-run">—</div>
           <div class="hint">Actual Δ/day ÷ implied</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Book mark</div>
+          <div class="value" id="kpi-book">—</div>
+          <div class="hint" id="kpi-book-usd">Latest check-in at live spots</div>
         </div>
       </div>
       <div class="card">
@@ -520,7 +535,7 @@
   const REF_HYPE_FALLBACK = 78.345;
   let REF_HYPE = REF_HYPE_FALLBACK;
   const STORAGE_KEY = "zec-hype-yield-tracking-v1";
-  const AUTO_ENTRIES = [{"id":"auto-2026-09-13","date":"2026-09-13","zec":1.95904728,"hype":25.433734934,"auto":true,"note":"ATAs under Phantom \u2014 not empty wallets. HYPE mint 98sMh\u2026 Mh5g; ZEC mint A7bd\u2026 QXaS."}];
+  const AUTO_ENTRIES = [{"id":"auto-2026-09-13","date":"2026-09-13","zec":1.95904728,"hype":25.433734934,"auto":true,"note":"ATAs under Phantom \u2014 not empty wallets. HYPE mint 98sMh\u2026 Mh5g; ZEC mint A7bd\u2026 QXaS."},{"id":"snap-2026-09-14-1336et","date":"2026-09-14","zec":2.06481493,"hype":26.612830152,"auto":true,"note":"Catch-up after missed morning; weekends enabled"}];
   const WEEK1_ZEC = 1.62605;
   const WEEK1_HYPE = 21.40849;
   const DAILY_ZEC = WEEK1_ZEC / 7;
@@ -831,6 +846,45 @@
       <div class="spot-meta">${liveSpotMeta} · ZEC ${money(REF_ZEC)} · HYPE ${money(REF_HYPE)}</div>`;
   }
 
+
+  function findEntryNear(entries, latestDate, targetDays) {
+    // entries sorted asc; pick closest entry whose date is <= latest - targetDays
+    const latest = Date.parse(latestDate + "T00:00:00");
+    const target = latest - targetDays * 86400000;
+    let best = null, bestDiff = Infinity;
+    for (const e of entries) {
+      const t = Date.parse(e.date + "T00:00:00");
+      if (t > latest) continue;
+      const diff = Math.abs(t - target);
+      // prefer on-or-before target
+      if (t <= target && (latest - t) < bestDiff) {
+        best = e; bestDiff = latest - t;
+      }
+    }
+    if (best) return best;
+    // fallback: oldest entry at least ~targetDays back if any
+    for (let i = entries.length - 1; i >= 0; i--) {
+      const t = Date.parse(entries[i].date + "T00:00:00");
+      if (latest - t >= targetDays * 86400000 * 0.7) return entries[i];
+    }
+    return null;
+  }
+
+  function deltaBlock(cur, base, digitsZ, digitsH) {
+    if (!cur || !base) return { tokens: "Need more history", usdHint: "—" };
+    const dz = cur.zec - base.zec;
+    const dh = cur.hype - base.hype;
+    const usd = (dz * REF_ZEC) + (dh * REF_HYPE);
+    const markCur = cur.zec * REF_ZEC + cur.hype * REF_HYPE;
+    const markBase = base.zec * REF_ZEC + base.hype * REF_HYPE;
+    // quantity delta at live spots (not mark-to-market of old prices)
+    return {
+      tokens: fmtPace(dz, digitsZ) + " ZEC · " + fmtPace(dh, digitsH) + " HYPE",
+      usdHint: money(usd) + " qty @ live · marks " + money(markBase) + " → " + money(markCur),
+      baseDate: base.date
+    };
+  }
+
   async function fetchLiveSpots() {
     const banner = document.getElementById("live-spots");
     try {
@@ -900,7 +954,35 @@
     const kpiVs = document.getElementById("kpi-vs-run");
 
     const paceUsdEl = document.getElementById("kpi-daily-pace-usd");
+    const dodEl = document.getElementById("kpi-dod");
+    const dodUsd = document.getElementById("kpi-dod-usd");
+    const wowEl = document.getElementById("kpi-wow");
+    const wowUsd = document.getElementById("kpi-wow-usd");
+    const bookEl = document.getElementById("kpi-book");
+    const bookUsd = document.getElementById("kpi-book-usd");
     updateImpliedDailyUsd();
+
+    if (entries.length) {
+      const latest = entries[entries.length - 1];
+      const book = latest.zec * REF_ZEC + latest.hype * REF_HYPE;
+      if (bookEl) bookEl.textContent = fmtAmt(latest.zec, 4) + " ZEC · " + fmtAmt(latest.hype, 3) + " HYPE";
+      if (bookUsd) bookUsd.innerHTML = `<div class="usd-line"><strong>${money(book)}</strong></div><div class="spot-meta">${latest.date} · ${liveSpotMeta}</div>`;
+
+      const dodBase = findEntryNear(entries, latest.date, 1);
+      const dod = deltaBlock(latest, dodBase && dodBase.date !== latest.date ? dodBase : null, 4, 3);
+      if (dodEl) dodEl.textContent = dod.tokens;
+      if (dodUsd) dodUsd.innerHTML = dod.baseDate ? `<div class="usd-line">${dod.usdHint}</div><div class="spot-meta">vs ${dod.baseDate}</div>` : dod.usdHint;
+
+      const wowBase = findEntryNear(entries, latest.date, 7);
+      const wow = deltaBlock(latest, wowBase && wowBase.date !== latest.date ? wowBase : null, 4, 3);
+      if (wowEl) wowEl.textContent = wow.tokens;
+      if (wowUsd) wowUsd.innerHTML = wow.baseDate ? `<div class="usd-line">${wow.usdHint}</div><div class="spot-meta">vs ${wow.baseDate}</div>` : "Need ~7d history";
+    } else {
+      if (dodEl) dodEl.textContent = "—";
+      if (wowEl) wowEl.textContent = "—";
+      if (bookEl) bookEl.textContent = "—";
+    }
+
     if (entries.length >= 2) {
       const a = entries[entries.length - 2];
       const b = entries[entries.length - 1];
