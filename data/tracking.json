@@ -136,13 +136,33 @@
       },
       "savedAt": "2026-09-15 22:23 UTC",
       "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-16-0931et",
+      "date": "2026-09-16",
+      "zec": 2.22299882,
+      "hype": 31.729386293,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1233.29,
+        "hype": 77.92,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 2741.6022147178,
+        "hype": 2472.3537799505602,
+        "total": 5213.95599466836
+      },
+      "savedAt": "2026-09-16 13:31 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
     }
   ],
   "liveSpots": {
-    "zec": 1101.1,
-    "hype": 76.49,
+    "zec": 1233.29,
+    "hype": 77.92,
     "source": "Coinbase",
-    "fetchedAt": "2026-09-15 22:23 UTC"
+    "fetchedAt": "2026-09-16 13:31 UTC"
   },
   "autoPopulate": {
     "enabled": true,
@@ -160,7 +180,7 @@
     "balance": 59.9999774,
     "includeInYieldTotals": false,
     "role": "cold-reserve",
-    "updatedAt": "2026-09-15T22:23:23Z",
+    "updatedAt": "2026-09-16T13:31:46Z",
     "source": "CipherScan cipherscan.app HTML scrape (API 401)"
   },
   "features": {
