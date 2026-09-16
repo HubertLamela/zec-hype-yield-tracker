@@ -156,13 +156,33 @@
       },
       "savedAt": "2026-09-16 13:31 UTC",
       "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-16-1806et",
+      "date": "2026-09-16",
+      "zec": 2.27987966,
+      "hype": 32.50713742,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1312.13,
+        "hype": 77.985,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 2991.4984982758006,
+        "hype": 2535.0691116987,
+        "total": 5526.567609974501
+      },
+      "savedAt": "2026-09-16 22:06 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
     }
   ],
   "liveSpots": {
-    "zec": 1233.29,
-    "hype": 77.92,
+    "zec": 1312.13,
+    "hype": 77.985,
     "source": "Coinbase",
-    "fetchedAt": "2026-09-16 13:31 UTC"
+    "fetchedAt": "2026-09-16 22:06 UTC"
   },
   "autoPopulate": {
     "enabled": true,
@@ -180,7 +200,7 @@
     "balance": 59.9999774,
     "includeInYieldTotals": false,
     "role": "cold-reserve",
-    "updatedAt": "2026-09-16T13:31:46Z",
+    "updatedAt": "2026-09-16T22:06:39Z",
     "source": "CipherScan cipherscan.app HTML scrape (API 401)"
   },
   "features": {
@@ -189,5 +209,14 @@
     "coldZecSecondLine": true,
     "gistDesktopAutoRefresh": true,
     "pagesUrl": "https://hubertlamela.github.io/zec-hype-yield-tracker/"
+  },
+  "okxZec": {
+    "venue": "OKX",
+    "balance": 10.22614485,
+    "usd_at_capture": 13652.82,
+    "includeInYieldTotals": false,
+    "role": "exchange-balance",
+    "updatedAt": "2026-09-16T19:14:34.621439+00:00",
+    "source": "OKX app screenshot"
   }
 }
