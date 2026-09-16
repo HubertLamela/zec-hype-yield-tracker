@@ -181,6 +181,22 @@
     color: var(--muted);
   }
   .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .toggle {
+    display: inline-flex; align-items: center; gap: 7px;
+    margin-left: 6px; padding: 4px 10px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: rgba(255,255,255,.03);
+    cursor: pointer; user-select: none; color: var(--text); font-size: 12px;
+  }
+  .legend .toggle input { accent-color: #e8edf7; }
+  .swatch.actual {
+    width: 16px; height: 0; border-top: 2.5px dotted #e8edf7;
+    border-radius: 0; background: transparent;
+  }
+  .series-actual {
+    fill: none; stroke: #e8edf7; stroke-width: 2.4;
+    stroke-dasharray: 5 5; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .dot-actual { stroke: #090b10; stroke-width: 1.5; }
   .swatch {
     width: 8px; height: 8px; border-radius: 99px;
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent);
@@ -448,6 +464,10 @@
             <span><i class="swatch" style="--c:var(--ne)"></i> Neutral</span>
             <span><i class="swatch" style="--c:var(--bu)"></i> Bullish</span>
             <span><i class="swatch" style="--c:var(--uu)"></i> Ultra bullish</span>
+            <label class="toggle" title="Overlay realized yield-book mark from Tracking check-ins">
+              <input type="checkbox" id="toggle-actual" />
+              <i class="swatch actual"></i> Actual
+            </label>
           </div>
         </div>
         <div class="chart-wrap" id="chart-wrap">
@@ -693,6 +713,43 @@
   }
 
   let hoverIdx = null;
+  let showActual = false;
+
+  function actualPoints() {
+    const entries = (typeof loadEntries === "function" ? loadEntries() : [])
+      .slice()
+      .filter(e => e && e.date && e.zec != null && e.hype != null)
+      .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    if (!entries.length) return [];
+    const t0 = Date.parse(entries[0].date + "T00:00:00");
+    return entries.map(e => {
+      const zSpot = (e.spots && e.spots.zec) || REF_ZEC;
+      const hSpot = (e.spots && e.spots.hype) || REF_HYPE;
+      let usd = (+e.zec) * zSpot + (+e.hype) * hSpot;
+      if (view === "zec") usd = (+e.zec) * zSpot;
+      if (view === "hype") usd = (+e.hype) * hSpot;
+      const weeks = Math.max(0, (Date.parse(e.date + "T00:00:00") - t0) / (7 * 86400000));
+      return { date: e.date, weeks, usd, zec: +e.zec, hype: +e.hype };
+    }).filter(p => isFinite(p.usd) && p.usd > 0);
+  }
+
+  function xAtWeeks(weeks) {
+    const xs = ROWS.map(r => r.weeks);
+    if (weeks <= 0) return PAD.l;
+    if (weeks >= xs[xs.length - 1]) return xAt(ROWS.length - 1);
+    if (weeks <= xs[0]) {
+      const u = weeks / xs[0];
+      return PAD.l + u * (xAt(0) - PAD.l);
+    }
+    for (let i = 0; i < xs.length - 1; i++) {
+      if (weeks <= xs[i + 1]) {
+        const u = (weeks - xs[i]) / (xs[i + 1] - xs[i]);
+        return xAt(i) + u * (xAt(i + 1) - xAt(i));
+      }
+    }
+    return xAt(ROWS.length - 1);
+  }
+
 
   function seriesValues() {
     return SCENARIOS.map((_, si) => ROWS.map(row => cellUsd(row, si)));
@@ -700,7 +757,8 @@
 
   function renderChart() {
     const series = seriesValues();
-    const all = series.flat();
+    const actual = showActual ? actualPoints() : [];
+    const all = series.flat().concat(actual.map(p => p.usd));
     const minV = Math.min(...all);
     const maxV = Math.max(...all);
     const yMin = Math.log10(minV / 1.25);
@@ -727,13 +785,28 @@
       return `<path class="series" d="${d}" stroke="${SCENARIOS[si].color}" />${dots}`;
     }).join("");
 
+    let actualPath = "";
+    if (actual.length) {
+      const d = actual.map((p, i) => {
+        const x = xAtWeeks(p.weeks);
+        const y = logY(p.usd, yMin, yMax);
+        return `${i ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(" ");
+      const dots = actual.map(p => {
+        const x = xAtWeeks(p.weeks);
+        const y = logY(p.usd, yMin, yMax);
+        return `<circle class="dot-actual" cx="${x}" cy="${y}" r="4" fill="#e8edf7" />`;
+      }).join("");
+      actualPath = `<path class="series-actual" d="${d}" />${dots}`;
+    }
+
     let hover = "";
     if (hoverIdx != null) {
       const x = xAt(hoverIdx);
       hover = `<line class="grid-line" x1="${x}" x2="${x}" y1="${PAD.t}" y2="${VB.h - PAD.b}" stroke-dasharray="3 4" />`;
     }
 
-    svg.innerHTML = `<rect x="0" y="0" width="${VB.w}" height="${VB.h}" fill="transparent" />${grid}${hover}${lines}${xLabels}`;
+    svg.innerHTML = `<rect x="0" y="0" width="${VB.w}" height="${VB.h}" fill="transparent" />${grid}${hover}${lines}${actualPath}${xLabels}`;
     svg.dataset.ymin = yMin;
     svg.dataset.ymax = yMax;
   }
@@ -750,12 +823,23 @@
           : "";
       return `<div class="row"><span style="color:${s.color}">${s.label}</span><span class="usd">${usd(v)}${extra}</span></div>`;
     }).join("");
+    let actualLine = "";
+    if (showActual) {
+      const pts = actualPoints();
+      if (pts.length) {
+        const latest = pts[pts.length - 1];
+        const neut = cellUsd(row, 2);
+        const dlt = latest.usd - neut;
+        const sign = dlt >= 0 ? "+" : "−";
+        actualLine = `<div class="row"><span style="color:#e8edf7">Actual (latest ${latest.date})</span><span class="usd">${usd(latest.usd)} · Δ vs Neutral ${sign}${usd(Math.abs(dlt))}</span></div>`;
+      }
+    }
     const amt = view === "zec"
       ? fmtAmt(row.zec, 2) + " ZEC"
       : view === "hype"
         ? fmtAmt(row.hype, 1) + " HYPE"
         : fmtAmt(row.zec, 2) + " ZEC + " + fmtAmt(row.hype, 1) + " HYPE";
-    tooltip.innerHTML = `<div class="t-title">${row.tf} · ${amt}</div>${lines}`;
+    tooltip.innerHTML = `<div class="t-title">${row.tf} · ${amt}</div>${lines}${actualLine}`;
     tooltip.style.display = "block";
     const rect = wrap.getBoundingClientRect();
     let left = clientX - rect.left + 14;
@@ -807,6 +891,14 @@
   document.querySelectorAll(".filters button").forEach(btn => {
     btn.addEventListener("click", () => setView(btn.dataset.view));
   });
+
+  const actualToggle = document.getElementById("toggle-actual");
+  if (actualToggle) {
+    actualToggle.addEventListener("change", () => {
+      showActual = !!actualToggle.checked;
+      renderChart();
+    });
+  }
 
   /* ---------- tabs ---------- */
   function setTab(name) {
