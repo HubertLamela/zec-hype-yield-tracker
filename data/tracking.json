@@ -239,10 +239,10 @@
     }
   ],
   "liveSpots": {
-    "zec": 1470.585,
-    "hype": 91.275,
+    "zec": 1468.84,
+    "hype": 91.26,
     "source": "Coinbase",
-    "fetchedAt": "2026-09-18 13:23 UTC"
+    "fetchedAt": "2026-09-18 13:36 UTC"
   },
   "autoPopulate": {
     "enabled": true,
@@ -260,8 +260,8 @@
     "balance": 59.9999774,
     "includeInYieldTotals": false,
     "role": "cold-reserve",
-    "updatedAt": "2026-09-18T13:23:02Z",
-    "source": "zcashexplorer mainnet HTML scrape (Balance 59.9999774 ZEC); CipherScan.app SPA unresolved this run"
+    "updatedAt": "2026-09-18T13:36:44Z",
+    "source": "carried forward from 2026-09-18T13:23:02Z (explorers unreachable this run; last zcashexplorer mainnet HTML scrape (Balance 59.9999774 ZEC); CipherScan.app SPA u)"
   },
   "features": {
     "dodWow": true,
