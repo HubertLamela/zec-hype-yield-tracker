@@ -605,12 +605,12 @@
 
 <script>
 (function () {
-  const REF_ZEC_FALLBACK = 1091.02;
+  const REF_ZEC_FALLBACK = 1469.9;
   let REF_ZEC = REF_ZEC_FALLBACK;
-  const REF_HYPE_FALLBACK = 78.345;
+  const REF_HYPE_FALLBACK = 91.145;
   let REF_HYPE = REF_HYPE_FALLBACK;
   const STORAGE_KEY = "zec-hype-yield-tracking-v1";
-  const AUTO_ENTRIES =   [
+  const AUTO_ENTRIES = [
   {
     "id": "auto-2026-09-13",
     "date": "2026-09-13",
@@ -828,6 +828,26 @@
     },
     "savedAt": "2026-09-19 13:09 UTC",
     "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+  },
+  {
+    "id": "snap-2026-09-19-1802et",
+    "date": "2026-09-19",
+    "zec": 0.0187083,
+    "hype": 38.051286805,
+    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com (publicnode indexed methods gated)",
+    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+    "spots": {
+      "zec": 1469.9,
+      "hype": 91.145,
+      "source": "Coinbase spot"
+    },
+    "usd": {
+      "zec": 27.499330170000004,
+      "hype": 3468.1845358417245,
+      "total": 3495.6838660117246
+    },
+    "savedAt": "2026-09-19 22:02 UTC",
+    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ALERT: ZEC ATA emptied ~2026-09-19 17:47 UTC (2.5649\u2192closed) then reconstituted with dust 0.0187 at 18:01 UTC (solscan 9Bjne3SKwZDM\u2026); HYPE continued accruing."
   }
 ];
   const WEEK1_ZEC = 1.62605;

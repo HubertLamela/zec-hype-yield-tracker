@@ -428,6 +428,7 @@
     <div class="tabs" role="tablist" aria-label="Primary">
       <button type="button" role="tab" id="tab-proj" aria-controls="pane-proj" aria-selected="true">Projections</button>
       <button type="button" role="tab" id="tab-track" aria-controls="pane-track" aria-selected="false">Tracking</button>
+      <button type="button" role="tab" id="tab-yield" aria-controls="pane-yield" aria-selected="false">Yield / day</button>
     </div>
 
     <section class="pane" id="pane-proj" role="tabpanel" aria-labelledby="tab-proj">
@@ -567,6 +568,33 @@
       <div id="track-body"></div>
     </section>
 
+
+    <section class="pane" id="pane-yield" role="tabpanel" aria-labelledby="tab-yield" hidden>
+      <p class="track-lead">
+        Yield pace is tokens earned on the Phantom HYPE and ZEC accounts, marked at the latest spots.
+        Price moves are separate. Cold ZEC is not in these numbers.
+      </p>
+      <div class="kpis" id="yield-kpis" style="margin-bottom:16px"></div>
+      <div class="card">
+        <div class="card-head"><h2>By day</h2></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>ZEC</th>
+                <th>HYPE</th>
+                <th>Tokens</th>
+                <th>Price</th>
+                <th>Book</th>
+              </tr>
+            </thead>
+            <tbody id="yield-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <footer class="disc">
       Scenario projections are illustrative, not financial advice. Token counts assume the
       week-1 yield rate continues with no pause; dollar figures are hypothetical mark-to-market
@@ -577,12 +605,12 @@
 
 <script>
 (function () {
-  const REF_ZEC_FALLBACK = 1091.02;
+  const REF_ZEC_FALLBACK = 1469.9;
   let REF_ZEC = REF_ZEC_FALLBACK;
-  const REF_HYPE_FALLBACK = 78.345;
+  const REF_HYPE_FALLBACK = 91.145;
   let REF_HYPE = REF_HYPE_FALLBACK;
   const STORAGE_KEY = "zec-hype-yield-tracking-v1";
-  const AUTO_ENTRIES =   [
+  const AUTO_ENTRIES = [
   {
     "id": "auto-2026-09-13",
     "date": "2026-09-13",
@@ -800,6 +828,26 @@
     },
     "savedAt": "2026-09-19 13:09 UTC",
     "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+  },
+  {
+    "id": "snap-2026-09-19-1802et",
+    "date": "2026-09-19",
+    "zec": 0.0187083,
+    "hype": 38.051286805,
+    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com (publicnode indexed methods gated)",
+    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+    "spots": {
+      "zec": 1469.9,
+      "hype": 91.145,
+      "source": "Coinbase spot"
+    },
+    "usd": {
+      "zec": 27.499330170000004,
+      "hype": 3468.1845358417245,
+      "total": 3495.6838660117246
+    },
+    "savedAt": "2026-09-19 22:02 UTC",
+    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ALERT: ZEC ATA emptied ~2026-09-19 17:47 UTC (2.5649\u2192closed) then reconstituted with dust 0.0187 at 18:01 UTC (solscan 9Bjne3SKwZDM\u2026); HYPE continued accruing."
   }
 ];
   const WEEK1_ZEC = 1.62605;
@@ -1120,15 +1168,88 @@
   }
 
   /* ---------- tabs ---------- */
+  function lastSnapByDay(entries) {
+    const by = new Map();
+    entries.slice().sort((a, b) => String(a.date).localeCompare(String(b.date))).forEach(e => {
+      if (!e || !e.date || e.zec == null || e.hype == null) return;
+      by.set(String(e.date).slice(0, 10), e);
+    });
+    return [...by.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([, e]) => e);
+  }
+
+  function renderYieldDay() {
+    const kpis = document.getElementById("yield-kpis");
+    const body = document.getElementById("yield-tbody");
+    if (!kpis || !body) return;
+    const days = lastSnapByDay(loadEntries());
+    if (days.length < 2) {
+      kpis.innerHTML = `<div class="kpi"><div class="label">Yield pace</div><div class="value">Need 2 days</div><div class="hint">Check-ins are still too short</div></div>`;
+      body.innerHTML = `<tr><td colspan="6">Not enough check-ins yet.</td></tr>`;
+      return;
+    }
+    const first = days[0];
+    const last = days[days.length - 1];
+    const elapsed = Math.max(1 / 24, (Date.parse(last.date + "T12:00:00") - Date.parse(first.date + "T12:00:00")) / 86400000);
+    const dz = +last.zec - +first.zec;
+    const dh = +last.hype - +first.hype;
+    const zSpot = (last.spots && last.spots.zec) || REF_ZEC;
+    const hSpot = (last.spots && last.spots.hype) || REF_HYPE;
+    const yieldUsd = (dz * zSpot + dh * hSpot) / elapsed;
+    const firstBook = (+first.zec) * ((first.spots && first.spots.zec) || zSpot) + (+first.hype) * ((first.spots && first.spots.hype) || hSpot);
+    const lastBook = (+last.zec) * zSpot + (+last.hype) * hSpot;
+    const mtm = (lastBook - firstBook) / elapsed;
+    kpis.innerHTML = `
+      <div class="kpi"><div class="label">Yield pace</div><div class="value">${money(yieldUsd)}/day</div><div class="hint">${fmtPace(dz / elapsed, 3)} ZEC · ${fmtPace(dh / elapsed, 2)} HYPE · tokens only</div></div>
+      <div class="kpi"><div class="label">Book mark</div><div class="value">${money(mtm)}/day</div><div class="hint">Includes price, ${first.date} → ${last.date}</div></div>
+      <div class="kpi"><div class="label">Since first snap</div><div class="value">${fmtPace(dz, 3)} ZEC · ${fmtPace(dh, 2)} HYPE</div><div class="hint">${elapsed.toFixed(1)} days · ${days.length} days of snaps</div></div>`;
+
+    const rows = [];
+    for (let i = 0; i < days.length; i++) {
+      const cur = days[i];
+      const prev = i ? days[i - 1] : null;
+      const cz = +cur.zec, ch = +cur.hype;
+      const pz = prev ? +prev.zec : null, ph = prev ? +prev.hype : null;
+      const dZ = prev ? cz - pz : null, dH = prev ? ch - ph : null;
+      const cs = cur.spots || {};
+      const ps = (prev && prev.spots) || {};
+      const liveZ = Number(cs.zec) || zSpot;
+      const liveH = Number(cs.hype) || hSpot;
+      let qty = null, price = null, book = null;
+      if (prev) {
+        qty = dZ * liveZ + dH * liveH;
+        if (ps.zec && ps.hype) {
+          price = pz * (liveZ - Number(ps.zec)) + ph * (liveH - Number(ps.hype));
+          const oldBook = pz * Number(ps.zec) + ph * Number(ps.hype);
+          const newBook = cz * liveZ + ch * liveH;
+          book = newBook - oldBook;
+        } else {
+          book = qty;
+        }
+      }
+      const bookMark = cz * liveZ + ch * liveH;
+      rows.push(`<tr>
+        <td><span class="tf">${cur.date}</span><span class="amt">${fmtAmt(cz, 3)} ZEC · ${fmtAmt(ch, 2)} HYPE</span></td>
+        <td class="usd">${dZ == null ? "—" : fmtPace(dZ, 4)}</td>
+        <td class="usd">${dH == null ? "—" : fmtPace(dH, 3)}</td>
+        <td class="usd">${qty == null ? "—" : money(qty)}</td>
+        <td class="usd">${price == null ? "—" : money(price)}</td>
+        <td class="usd">${book == null ? money(bookMark) : money(book)}<div class="price">${money(bookMark)} mark</div></td>
+      </tr>`);
+    }
+    body.innerHTML = rows.join("");
+  }
+
   function setTab(name) {
-    const proj = name === "proj";
-    document.getElementById("tab-proj").setAttribute("aria-selected", proj ? "true" : "false");
-    document.getElementById("tab-track").setAttribute("aria-selected", proj ? "false" : "true");
-    document.getElementById("pane-proj").hidden = !proj;
-    document.getElementById("pane-track").hidden = proj;
+    ["proj", "track", "yield"].forEach(id => {
+      const on = name === id;
+      document.getElementById("tab-" + id).setAttribute("aria-selected", on ? "true" : "false");
+      document.getElementById("pane-" + id).hidden = !on;
+    });
+    if (name === "yield") renderYieldDay();
   }
   document.getElementById("tab-proj").addEventListener("click", () => setTab("proj"));
   document.getElementById("tab-track").addEventListener("click", () => setTab("track"));
+  document.getElementById("tab-yield").addEventListener("click", () => setTab("yield"));
 
   /* ---------- tracking ---------- */
   function lastFridayISO(from) {
