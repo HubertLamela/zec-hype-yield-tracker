@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-cache-bust="20260918093757">
+<html lang="en" data-cache-bust="20260920130716">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -605,9 +605,9 @@
 
 <script>
 (function () {
-  const REF_ZEC_FALLBACK = 1469.9;
+  const REF_ZEC_FALLBACK = 1456.34;
   let REF_ZEC = REF_ZEC_FALLBACK;
-  const REF_HYPE_FALLBACK = 91.145;
+  const REF_HYPE_FALLBACK = 91.27;
   let REF_HYPE = REF_HYPE_FALLBACK;
   const STORAGE_KEY = "zec-hype-yield-tracking-v1";
   const AUTO_ENTRIES = [
@@ -848,6 +848,26 @@
     },
     "savedAt": "2026-09-19 22:02 UTC",
     "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ALERT: ZEC ATA emptied ~2026-09-19 17:47 UTC (2.5649\u2192closed) then reconstituted with dust 0.0187 at 18:01 UTC (solscan 9Bjne3SKwZDM\u2026); HYPE continued accruing."
+  },
+  {
+    "id": "snap-2026-09-20-0906et",
+    "date": "2026-09-20",
+    "zec": 0.05801905,
+    "hype": 38.491386477,
+    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+    "spots": {
+      "zec": 1456.34,
+      "hype": 91.27,
+      "source": "Coinbase spot"
+    },
+    "usd": {
+      "zec": 84.495463277,
+      "hype": 3513.1088437557896,
+      "total": 3597.6043070327896
+    },
+    "savedAt": "2026-09-20 13:06 UTC",
+    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still near-dust after Sep 19 drain (0.0187\u21920.0580); HYPE still accruing."
   }
 ];
   const WEEK1_ZEC = 1.62605;
