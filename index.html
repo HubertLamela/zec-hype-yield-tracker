@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-cache-bust="20260927090600">
+<html lang="en" data-cache-bust="20260927181000">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -605,9 +605,9 @@
 
 <script>
 (function () {
-  const REF_ZEC_FALLBACK = 1646.18;
+  const REF_ZEC_FALLBACK = 1590.11;
   let REF_ZEC = REF_ZEC_FALLBACK;
-  const REF_HYPE_FALLBACK = 92.105;
+  const REF_HYPE_FALLBACK = 91.305;
   const COLD_ZEC = 59.9999774;
   let REF_HYPE = REF_HYPE_FALLBACK;
   const STORAGE_KEY = "zec-hype-yield-tracking-v1";
@@ -1149,8 +1149,28 @@
       },
       "savedAt": "2026-09-27 13:06 UTC",
       "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4987\u21920.5243; HYPE 45.9590\u219246.4279."
+    },
+    {
+      "id": "snap-2026-09-27-1810et",
+      "date": "2026-09-27",
+      "zec": 0.54847717,
+      "hype": 46.747243666,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1590.11,
+        "hype": 91.305,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 872.1390327886999,
+        "hype": 4268.25708292413,
+        "total": 5140.396115712831
+      },
+      "savedAt": "2026-09-27 22:10 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5243\u21920.5485; HYPE 46.4279\u219246.7472."
     }
-  ];
+  ]
 
   const ROWS = [
     { tf: "1 Month",  x: "1M", weeks: 4,   zec: 6.50,   hype: 85.6,  values: [13074, 13953, 14839, 15753, 16979] },
