@@ -56,7 +56,7 @@
         "total": 4128.938034677299
       },
       "savedAt": "2026-09-13 15:30 UTC",
-      "note": "ATAs under Phantom — not empty wallets. HYPE mint 98sMh… Mh5g; ZEC mint A7bd… QXaS."
+      "note": "ATAs under Phantom \u2014 not empty wallets. HYPE mint 98sMh\u2026 Mh5g; ZEC mint A7bd\u2026 QXaS."
     },
     {
       "id": "snap-2026-09-14-1336et",
@@ -275,7 +275,7 @@
         "total": 3495.6838660117246
       },
       "savedAt": "2026-09-19 22:02 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ALERT: ZEC ATA emptied ~2026-09-19 17:47 UTC (2.5649→closed) then reconstituted with dust 0.0187 at 18:01 UTC (solscan 9Bjne3SKwZDM…); HYPE continued accruing."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ALERT: ZEC ATA emptied ~2026-09-19 17:47 UTC (2.5649\u2192closed) then reconstituted with dust 0.0187 at 18:01 UTC (solscan 9Bjne3SKwZDM\u2026); HYPE continued accruing."
     },
     {
       "id": "snap-2026-09-20-0906et",
@@ -295,7 +295,7 @@
         "total": 3597.6043070327896
       },
       "savedAt": "2026-09-20 13:06 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still near-dust after Sep 19 drain (0.0187→0.0580); HYPE still accruing."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still near-dust after Sep 19 drain (0.0187\u21920.0580); HYPE still accruing."
     },
     {
       "id": "snap-2026-09-20-1807et",
@@ -335,7 +335,7 @@
         "total": 3940.93831659411
       },
       "savedAt": "2026-09-21 13:41 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.0782→0.1151); HYPE still accruing."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.0782\u21920.1151); HYPE still accruing."
     },
     {
       "id": "snap-2026-09-21-1827et",
@@ -355,7 +355,7 @@
         "total": 3996.9784415832705
       },
       "savedAt": "2026-09-21 22:27 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.1151→0.1756); HYPE still accruing."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.1151\u21920.1756); HYPE still accruing."
     },
     {
       "id": "snap-2026-09-22-0921et",
@@ -375,7 +375,7 @@
         "total": 4224.134944355649
       },
       "savedAt": "2026-09-22 13:21 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.1756→0.2131); HYPE still accruing."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.1756\u21920.2131); HYPE still accruing."
     },
     {
       "id": "snap-2026-09-22-1825et",
@@ -395,7 +395,7 @@
         "total": 4324.6682425433
       },
       "savedAt": "2026-09-22 22:25 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA flat vs morning (0.2131→0.2131); HYPE still accruing (40.9257→41.2491)."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA flat vs morning (0.2131\u21920.2131); HYPE still accruing (40.9257\u219241.2491)."
     },
     {
       "id": "snap-2026-09-23-0947et",
@@ -415,7 +415,7 @@
         "total": 4531.474282837999
       },
       "savedAt": "2026-09-23 13:47 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.2131→0.2686; HYPE still accruing (41.2491→42.8686)."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.2131\u21920.2686; HYPE still accruing (41.2491\u219242.8686)."
     },
     {
       "id": "snap-2026-09-23-1825et",
@@ -435,7 +435,7 @@
         "total": 4505.880423938956
       },
       "savedAt": "2026-09-23 22:25 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.2686→0.3063; HYPE still accruing (42.8686→43.0674)."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.2686\u21920.3063; HYPE still accruing (42.8686\u219243.0674)."
     },
     {
       "id": "snap-2026-09-24-0926et",
@@ -455,7 +455,7 @@
         "total": 4518.023077955624
       },
       "savedAt": "2026-09-24 13:26 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3063→0.3252; HYPE still accruing (43.0674→43.8233)."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3063\u21920.3252; HYPE still accruing (43.0674\u219243.8233)."
     },
     {
       "id": "snap-2026-09-24-1808et",
@@ -475,7 +475,7 @@
         "total": 4617.7234074135
       },
       "savedAt": "2026-09-24 22:08 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3252→0.3470; HYPE still accruing (43.8233→44.1841)."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3252\u21920.3470; HYPE still accruing (43.8233\u219244.1841)."
     },
     {
       "id": "snap-2026-09-25-0906et",
@@ -495,7 +495,7 @@
         "total": 4778.1017368612365
       },
       "savedAt": "2026-09-25 13:06 UTC",
-      "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3470→0.3664; HYPE 44.1841→44.6751."
+      "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3470\u21920.3664; HYPE 44.1841\u219244.6751."
     },
     {
       "id": "snap-2026-09-25-1814et",
@@ -515,7 +515,7 @@
         "total": 4774.700285585182
       },
       "savedAt": "2026-09-25 22:14 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3664→0.4035; HYPE 44.6751→45.2295."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3664\u21920.4035; HYPE 44.6751\u219245.2295."
     },
     {
       "id": "snap-2026-09-26-0908et",
@@ -535,7 +535,7 @@
         "total": 4944.048762113105
       },
       "savedAt": "2026-09-26 13:08 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4035→0.4734; HYPE 45.2295→45.6943."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4035\u21920.4734; HYPE 45.2295\u219245.6943."
     },
     {
       "id": "snap-2026-09-26-1812et",
@@ -555,7 +555,7 @@
         "total": 5067.275057748695
       },
       "savedAt": "2026-09-26 22:12 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4734→0.4987; HYPE 45.6943→45.9590."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4734\u21920.4987; HYPE 45.6943\u219245.9590."
     },
     {
       "id": "snap-2026-09-27-0906et",
@@ -575,7 +575,7 @@
         "total": 5139.3192212179
       },
       "savedAt": "2026-09-27 13:06 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4987→0.5243; HYPE 45.9590→46.4279."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4987\u21920.5243; HYPE 45.9590\u219246.4279."
     },
     {
       "id": "snap-2026-09-27-1810et",
@@ -595,7 +595,7 @@
         "total": 5140.396115712831
       },
       "savedAt": "2026-09-27 22:10 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5243→0.5485; HYPE 46.4279→46.7472."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5243\u21920.5485; HYPE 46.4279\u219246.7472."
     },
     {
       "id": "snap-2026-09-28-0923et",
@@ -615,7 +615,7 @@
         "total": 5127.50217863688
       },
       "savedAt": "2026-09-28 13:23 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5485→0.5732; HYPE 46.7472→47.0422."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5485\u21920.5732; HYPE 46.7472\u219247.0422."
     },
     {
       "id": "snap-2026-09-28-1816et",
@@ -635,7 +635,7 @@
         "total": 4959.736634596975
       },
       "savedAt": "2026-09-28 22:16 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5732→0.5732; HYPE 47.0422→47.4849."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5732\u21920.5732; HYPE 47.0422\u219247.4849."
     },
     {
       "id": "snap-2026-09-29-0915et",
@@ -655,7 +655,7 @@
         "total": 5103.06488063919
       },
       "savedAt": "2026-09-29 13:15 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5732→0.6008; HYPE 47.4849→47.8632."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5732\u21920.6008; HYPE 47.4849\u219247.8632."
     },
     {
       "id": "snap-2026-09-29-1815et",
@@ -675,7 +675,7 @@
         "total": 5046.742156839456
       },
       "savedAt": "2026-09-29 22:15 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6008→0.6297; HYPE 47.8632→48.1452."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6008\u21920.6297; HYPE 47.8632\u219248.1452."
     },
     {
       "id": "snap-2026-09-30-0913et",
@@ -695,7 +695,7 @@
         "total": 5259.0938313016695
       },
       "savedAt": "2026-09-30 13:13 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6297→0.6861; HYPE 48.1452→48.3393."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6297\u21920.6861; HYPE 48.1452\u219248.3393."
     },
     {
       "id": "snap-2026-09-30-1814et",
@@ -715,7 +715,7 @@
         "total": 5372.975322348841
       },
       "savedAt": "2026-09-30 22:14 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6861→0.6861; HYPE 48.3393→48.4254."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6861\u21920.6861; HYPE 48.3393\u219248.4254."
     },
     {
       "id": "snap-2026-10-01-0916et",
@@ -735,7 +735,7 @@
         "total": 5332.21063071172
       },
       "savedAt": "2026-10-01 13:16 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6861→0.7350; HYPE 48.4254→48.5753."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6861\u21920.7350; HYPE 48.4254\u219248.5753."
     },
     {
       "id": "snap-2026-10-01-1815et",
@@ -755,7 +755,7 @@
         "total": 5039.943559967025
       },
       "savedAt": "2026-10-01 22:15 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.7350→0.7574; HYPE 48.5753→46.3665."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.7350\u21920.7574; HYPE 48.5753\u219246.3665."
     },
     {
       "id": "snap-2026-10-02-0901et",
@@ -775,7 +775,7 @@
         "total": 4340.7019917987
       },
       "savedAt": "2026-10-02 13:01 UTC",
-      "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.7574→0.0783; HYPE 46.3665→46.5365."
+      "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.7574\u21920.0783; HYPE 46.3665\u219246.5365."
     },
     {
       "id": "snap-2026-10-02-0917et",
@@ -795,7 +795,7 @@
         "total": 4359.145627555162
       },
       "savedAt": "2026-10-02 13:17 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.0783→0.0783; HYPE 46.5365→46.5365."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.0783\u21920.0783; HYPE 46.5365\u219246.5365."
     },
     {
       "id": "snap-2026-10-02-1816et",
@@ -815,7 +815,7 @@
         "total": 5108.27338967952
       },
       "savedAt": "2026-10-02 22:16 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.0783→0.8438; HYPE 46.5365→46.6721."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.0783\u21920.8438; HYPE 46.5365\u219246.6721."
     },
     {
       "id": "snap-2026-10-03-0912et",
@@ -835,7 +835,7 @@
         "total": 5303.971692061455
       },
       "savedAt": "2026-10-03 13:12 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.8438→0.8892; HYPE 46.6721→46.7643."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.8438\u21920.8892; HYPE 46.6721\u219246.7643."
     },
     {
       "id": "snap-2026-10-03-1815et",
@@ -855,7 +855,7 @@
         "total": 5391.284925389401
       },
       "savedAt": "2026-10-03 22:15 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.8892→0.9083; HYPE 46.7643→46.8637."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.8892\u21920.9083; HYPE 46.7643\u219246.8637."
     },
     {
       "id": "snap-2026-10-04-0910et",
@@ -875,7 +875,7 @@
         "total": 5465.14149186975
       },
       "savedAt": "2026-10-04 13:10 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9083→0.9269; HYPE 46.8637→46.9190."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9083\u21920.9269; HYPE 46.8637\u219246.9190."
     },
     {
       "id": "snap-2026-10-04-1807et",
@@ -895,7 +895,7 @@
         "total": 5556.789317083455
       },
       "savedAt": "2026-10-04 22:07 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9269→0.9516; HYPE 46.9190→46.9638."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9269\u21920.9516; HYPE 46.9190\u219246.9638."
     },
     {
       "id": "snap-2026-10-05-0914et",
@@ -915,7 +915,7 @@
         "total": 5637.3665649312
       },
       "savedAt": "2026-10-05 13:14 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9516→0.9754; HYPE 46.9638→47.1174."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9516\u21920.9754; HYPE 46.9638\u219247.1174."
     },
     {
       "id": "snap-2026-10-05-1813et",
@@ -935,7 +935,7 @@
         "total": 5807.604500661289
       },
       "savedAt": "2026-10-05 22:13 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9754→0.9754 (unchanged since morning); HYPE 47.1174→47.1667."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9754\u21920.9754 (unchanged since morning); HYPE 47.1174\u219247.1667."
     },
     {
       "id": "snap-2026-10-06-0913et",
@@ -955,7 +955,7 @@
         "total": 5808.622388102184
       },
       "savedAt": "2026-10-06 13:13 UTC",
-      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9754→1.0294; HYPE 47.1667→47.3704."
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9754\u21921.0294; HYPE 47.1667\u219247.3704."
     },
     {
       "id": "snap-2026-10-06-1811et",
@@ -975,14 +975,34 @@
         "total": 5784.708396143495
       },
       "savedAt": "2026-10-06 22:11 UTC",
-      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0294→1.0570; HYPE 47.3704→47.5273."
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0294\u21921.0570; HYPE 47.3704\u219247.5273."
+    },
+    {
+      "id": "snap-2026-10-07-0918et",
+      "date": "2026-10-07",
+      "zec": 1.05700409,
+      "hype": 47.605558002,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1319.72,
+        "hype": 88.935,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1394.9494376548,
+        "hype": 4233.80030090787,
+        "total": 5628.74973856267
+      },
+      "savedAt": "2026-10-07 13:18 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0570\u21921.0570; HYPE 47.5273\u219247.6056."
     }
   ],
   "liveSpots": {
-    "zec": 1347.955,
-    "hype": 91.735,
+    "zec": 1319.72,
+    "hype": 88.935,
     "source": "Coinbase spot (buy/sell mid)",
-    "fetchedAt": "2026-10-06 22:11 UTC"
+    "fetchedAt": "2026-10-07 13:18 UTC"
   },
   "autoPopulate": {
     "enabled": true,
@@ -1000,7 +1020,7 @@
     "balance": 59.9999774,
     "includeInYieldTotals": false,
     "role": "cold-reserve",
-    "updatedAt": "2026-10-06 22:11 UTC",
+    "updatedAt": "2026-10-07 13:18 UTC",
     "source": "zcashexplorer mainnet HTML scrape (Balance 59.9999774 ZEC)"
   },
   "features": {
