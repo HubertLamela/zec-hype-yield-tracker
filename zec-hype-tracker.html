@@ -605,1152 +605,1172 @@
 
 <script>
 (function () {
-  const REF_ZEC_FALLBACK = 1249.83;
+  const REF_ZEC_FALLBACK = 1282.94;
   let REF_ZEC = REF_ZEC_FALLBACK;
-  const REF_HYPE_FALLBACK = 86.02;
+  const REF_HYPE_FALLBACK = 85.31;
   const COLD_ZEC = 59.9999774;
   let REF_HYPE = REF_HYPE_FALLBACK;
   const STORAGE_KEY = "zec-hype-yield-tracking-v1";
   const AUTO_ENTRIES = [
-  {
-    "id": "auto-2026-09-13",
-    "date": "2026-09-13",
-    "zec": 1.95904728,
-    "hype": 25.433734934,
-    "source": "auto-ata-getAccountInfo",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1090.9460955176553,
-      "hype": 78.310285878
-    },
-    "usd": {
-      "zec": 2137.214981050483,
-      "hype": 1991.7230536268155,
-      "total": 4128.938034677299
-    },
-    "savedAt": "2026-09-13 15:30 UTC",
-    "note": "ATAs under Phantom \u2014 not empty wallets. HYPE mint 98sMh\u2026 Mh5g; ZEC mint A7bd\u2026 QXaS."
-  },
-  {
-    "id": "snap-2026-09-14-1336et",
-    "date": "2026-09-14",
-    "zec": 2.06481493,
-    "hype": 26.612830152,
-    "source": "manual-catchup via https://solana-rpc.publicnode.com",
-    "spots": {
-      "zec": 1138.1,
-      "hype": 80.155,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 2349.9658718329997,
-      "hype": 2133.1514008335603,
-      "total": 4483.11727266656
-    },
-    "savedAt": "2026-09-14 13:38 UTC",
-    "note": "Catch-up after missed morning; weekends enabled"
-  },
-  {
-    "id": "snap-2026-09-14-1829et",
-    "date": "2026-09-14",
-    "zec": 2.10516896,
-    "hype": 27.317656303,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1176.25,
-      "hype": 80.2,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 2476.2049892,
-      "hype": 2190.8760355006,
-      "total": 4667.0810247006
-    },
-    "savedAt": "2026-09-14 22:29 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
-  },
-  {
-    "id": "snap-2026-09-15-1011et",
-    "date": "2026-09-15",
-    "zec": 2.16546862,
-    "hype": 28.566283277,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1131.85,
-      "hype": 78.67,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 2450.985657547,
-      "hype": 2247.3095054015903,
-      "total": 4698.295162948591
-    },
-    "savedAt": "2026-09-15 14:11 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
-  },
-  {
-    "id": "snap-2026-09-15-1823et",
-    "date": "2026-09-15",
-    "zec": 2.187194,
-    "hype": 30.627677275,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1101.1,
-      "hype": 76.49,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 2408.3193134,
-      "hype": 2342.71103476475,
-      "total": 4751.03034816475
-    },
-    "savedAt": "2026-09-15 22:23 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
-  },
-  {
-    "id": "snap-2026-09-16-0931et",
-    "date": "2026-09-16",
-    "zec": 2.22299882,
-    "hype": 31.729386293,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1233.29,
-      "hype": 77.92,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 2741.6022147178,
-      "hype": 2472.3537799505602,
-      "total": 5213.95599466836
-    },
-    "savedAt": "2026-09-16 13:31 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
-  },
-  {
-    "id": "snap-2026-09-16-1806et",
-    "date": "2026-09-16",
-    "zec": 2.27987966,
-    "hype": 32.50713742,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1312.13,
-      "hype": 77.985,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 2991.4984982758006,
-      "hype": 2535.0691116987,
-      "total": 5526.567609974501
-    },
-    "savedAt": "2026-09-16 22:06 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
-  },
-  {
-    "id": "snap-2026-09-17-093435et",
-    "date": "2026-09-17",
-    "zec": 2.33449173,
-    "hype": 33.502622894,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1356.795,
-      "hype": 81.765,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 3167.42670680535,
-      "hype": 2739.34196092791,
-      "total": 5906.76866773326
-    },
-    "savedAt": "2026-09-17 13:34 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
-  },
-  {
-    "id": "snap-2026-09-17-1824et",
-    "date": "2026-09-17",
-    "zec": 2.37603701,
-    "hype": 34.830272599,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1467.13,
-      "hype": 83.125,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 3485.9551784813,
-      "hype": 2895.2664097918746,
-      "total": 6381.221588273174
-    },
-    "savedAt": "2026-09-17 22:24 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
-  },
-  {
-    "id": "snap-2026-09-18-0923et",
-    "date": "2026-09-18",
-    "zec": 2.43255272,
-    "hype": 35.742047954,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1470.585,
-      "hype": 91.275,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 3577.2755417412,
-      "hype": 3262.35542700135,
-      "total": 6839.63096874255
-    },
-    "savedAt": "2026-09-18 13:23 UTC",
-    "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded"
-  },
-  {
-    "id": "snap-2026-09-19-0909et",
-    "date": "2026-09-19",
-    "zec": 2.54620248,
-    "hype": 37.425823957,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1532.565,
-      "hype": 92.22,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 3902.2208037612,
-      "hype": 3451.40948531454,
-      "total": 7353.63028907574
-    },
-    "savedAt": "2026-09-19 13:09 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
-  },
-  {
-    "id": "snap-2026-09-19-1802et",
-    "date": "2026-09-19",
-    "zec": 0.0187083,
-    "hype": 38.051286805,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com (publicnode indexed methods gated)",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1469.9,
-      "hype": 91.145,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 27.499330170000004,
-      "hype": 3468.1845358417245,
-      "total": 3495.6838660117246
-    },
-    "savedAt": "2026-09-19 22:02 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ALERT: ZEC ATA emptied ~2026-09-19 17:47 UTC (2.5649\u2192closed) then reconstituted with dust 0.0187 at 18:01 UTC (solscan 9Bjne3SKwZDM\u2026); HYPE continued accruing."
-  },
-  {
-    "id": "snap-2026-09-20-0906et",
-    "date": "2026-09-20",
-    "zec": 0.05801905,
-    "hype": 38.491386477,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1456.34,
-      "hype": 91.27,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 84.495463277,
-      "hype": 3513.1088437557896,
-      "total": 3597.6043070327896
-    },
-    "savedAt": "2026-09-20 13:06 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still near-dust after Sep 19 drain (0.0187\u21920.0580); HYPE still accruing."
-  },
-  {
-    "id": "snap-2026-09-20-1807et",
-    "date": "2026-09-20",
-    "zec": 0.0782405,
-    "hype": 38.980254127,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1486.15,
-      "hype": 92.83,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 116.27711907500002,
-      "hype": 3618.53699060941,
-      "total": 3734.81410968441
-    },
-    "savedAt": "2026-09-20 22:07 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still near-dust after Sep 19 drain (recovering slowly); HYPE still accruing."
-  },
-  {
-    "id": "snap-2026-09-21-0941et",
-    "date": "2026-09-21",
-    "zec": 0.11506907,
-    "hype": 39.774886009,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1535.105,
-      "hype": 94.64,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 176.64310470235,
-      "hype": 3764.29521189176,
-      "total": 3940.93831659411
-    },
-    "savedAt": "2026-09-21 13:41 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.0782\u21920.1151); HYPE still accruing."
-  },
-  {
-    "id": "snap-2026-09-21-1827et",
-    "date": "2026-09-21",
-    "zec": 0.17556307,
-    "hype": 40.142964626,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1463.055,
-      "hype": 93.17,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 256.85842737884997,
-      "hype": 3740.1200142044204,
-      "total": 3996.9784415832705
-    },
-    "savedAt": "2026-09-21 22:27 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.1151\u21920.1756); HYPE still accruing."
-  },
-  {
-    "id": "snap-2026-09-22-0921et",
-    "date": "2026-09-22",
-    "zec": 0.21314554,
-    "hype": 40.925667037,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1519.7075,
-      "hype": 95.3,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 323.91887572955,
-      "hype": 3900.2160686260995,
-      "total": 4224.134944355649
-    },
-    "savedAt": "2026-09-22 13:21 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.1756\u21920.2131); HYPE still accruing."
-  },
-  {
-    "id": "snap-2026-09-22-1825et",
-    "date": "2026-09-22",
-    "zec": 0.21314554,
-    "hype": 41.249077068,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1527.455,
-      "hype": 96.95,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 325.5702208007,
-      "hype": 3999.0980217426,
-      "total": 4324.6682425433
-    },
-    "savedAt": "2026-09-22 22:25 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA flat vs morning (0.2131\u21920.2131); HYPE still accruing (40.9257\u219241.2491)."
-  },
-  {
-    "id": "snap-2026-09-23-0947et",
-    "date": "2026-09-23",
-    "zec": 0.26863628,
-    "hype": 42.8685798,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1638.6625,
-      "hype": 95.4375,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 440.2041981755,
-      "hype": 4091.2700846625,
-      "total": 4531.474282837999
-    },
-    "savedAt": "2026-09-23 13:47 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.2131\u21920.2686; HYPE still accruing (41.2491\u219242.8686)."
-  },
-  {
-    "id": "snap-2026-09-23-1825et",
-    "date": "2026-09-23",
-    "zec": 0.30629121,
-    "hype": 43.067369673,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1513.5175,
-      "hype": 93.86,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 463.57710643117497,
-      "hype": 4042.3033175077803,
-      "total": 4505.880423938956
-    },
-    "savedAt": "2026-09-23 22:25 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.2686\u21920.3063; HYPE still accruing (42.8686\u219243.0674)."
-  },
-  {
-    "id": "snap-2026-09-24-0926et",
-    "date": "2026-09-24",
-    "zec": 0.32516891,
-    "hype": 43.823265103,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1505.585,
-      "hype": 91.925,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 489.56943336234997,
-      "hype": 4028.4536445932745,
-      "total": 4518.023077955624
-    },
-    "savedAt": "2026-09-24 13:26 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3063\u21920.3252; HYPE still accruing (43.0674\u219243.8233)."
-  },
-  {
-    "id": "snap-2026-09-24-1808et",
-    "date": "2026-09-24",
-    "zec": 0.34697412,
-    "hype": 44.184078765,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1539.685,
-      "hype": 92.42,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 534.2308479522,
-      "hype": 4083.4925594613005,
-      "total": 4617.7234074135
-    },
-    "savedAt": "2026-09-24 22:08 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3252\u21920.3470; HYPE still accruing (43.8233\u219244.1841)."
-  },
-  {
-    "id": "snap-2026-09-25-0906et",
-    "date": "2026-09-25",
-    "zec": 0.3664108,
-    "hype": 44.675096005,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1622.1975,
-      "hype": 93.6475,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 594.390683733,
-      "hype": 4183.711053128237,
-      "total": 4778.1017368612365
-    },
-    "savedAt": "2026-09-25 13:06 UTC",
-    "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3470\u21920.3664; HYPE 44.1841\u219244.6751."
-  },
-  {
-    "id": "snap-2026-09-25-1814et",
-    "date": "2026-09-25",
-    "zec": 0.4034635,
-    "hype": 45.229548689,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1532.8375,
-      "hype": 91.8925,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 618.44398268125,
-      "hype": 4156.256302903932,
-      "total": 4774.700285585182
-    },
-    "savedAt": "2026-09-25 22:14 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3664\u21920.4035; HYPE 44.6751\u219245.2295."
-  },
-  {
-    "id": "snap-2026-09-26-0908et",
-    "date": "2026-09-26",
-    "zec": 0.47344977,
-    "hype": 45.694294384,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1544.5425,
-      "hype": 92.195,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 731.263291380225,
-      "hype": 4212.78547073288,
-      "total": 4944.048762113105
-    },
-    "savedAt": "2026-09-26 13:08 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4035\u21920.4734; HYPE 45.2295\u219245.6943."
-  },
-  {
-    "id": "snap-2026-09-26-1812et",
-    "date": "2026-09-26",
-    "zec": 0.49865395,
-    "hype": 45.958954101,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1664.66,
-      "hype": 92.195,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 830.089284407,
-      "hype": 4237.185773341695,
-      "total": 5067.275057748695
-    },
-    "savedAt": "2026-09-26 22:12 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4734\u21920.4987; HYPE 45.6943\u219245.9590."
-  },
-  {
-    "id": "snap-2026-09-27-0906et",
-    "date": "2026-09-27",
-    "zec": 0.52428858,
-    "hype": 46.4279447,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1646.18,
-      "hype": 92.105,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 863.0733746244,
-      "hype": 4276.2458465935,
-      "total": 5139.3192212179
-    },
-    "savedAt": "2026-09-27 13:06 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4987\u21920.5243; HYPE 45.9590\u219246.4279."
-  },
-  {
-    "id": "snap-2026-09-27-1810et",
-    "date": "2026-09-27",
-    "zec": 0.54847717,
-    "hype": 46.747243666,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1590.11,
-      "hype": 91.305,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 872.1390327886999,
-      "hype": 4268.25708292413,
-      "total": 5140.396115712831
-    },
-    "savedAt": "2026-09-27 22:10 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5243\u21920.5485; HYPE 46.4279\u219246.7472."
-  },
-  {
-    "id": "snap-2026-09-28-0923et",
-    "date": "2026-09-28",
-    "zec": 0.57319874,
-    "hype": 47.042240108,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1593.205,
-      "hype": 89.585,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 913.2230985617,
-      "hype": 4214.27908007518,
-      "total": 5127.50217863688
-    },
-    "savedAt": "2026-09-28 13:23 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5485\u21920.5732; HYPE 46.7472\u219247.0422."
-  },
-  {
-    "id": "snap-2026-09-28-1816et",
-    "date": "2026-09-28",
-    "zec": 0.57319874,
-    "hype": 47.484867713,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1459.9875,
-      "hype": 86.825,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 836.86299541575,
-      "hype": 4122.873639181225,
-      "total": 4959.736634596975
-    },
-    "savedAt": "2026-09-28 22:16 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5732\u21920.5732; HYPE 47.0422\u219247.4849."
-  },
-  {
-    "id": "snap-2026-09-29-0915et",
-    "date": "2026-09-29",
-    "zec": 0.60080847,
-    "hype": 47.863208447,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1445.73,
-      "hype": 88.47,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 868.6068293331001,
-      "hype": 4234.45805130609,
-      "total": 5103.06488063919
-    },
-    "savedAt": "2026-09-29 13:15 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5732\u21920.6008; HYPE 47.4849\u219247.8632."
-  },
-  {
-    "id": "snap-2026-09-29-1815et",
-    "date": "2026-09-29",
-    "zec": 0.62972761,
-    "hype": 48.145208542,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1417.905,
-      "hype": 86.2775,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 892.89392685705,
-      "hype": 4153.848229982405,
-      "total": 5046.742156839456
-    },
-    "savedAt": "2026-09-29 22:15 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6008\u21920.6297; HYPE 47.8632\u219248.1452."
-  },
-  {
-    "id": "snap-2026-09-30-0913et",
-    "date": "2026-09-30",
-    "zec": 0.68614605,
-    "hype": 48.339289844,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1478.7849999999999,
-      "hype": 87.805,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1014.6624865492498,
-      "hype": 4244.43134475242,
-      "total": 5259.0938313016695
-    },
-    "savedAt": "2026-09-30 13:13 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6297\u21920.6861; HYPE 48.1452\u219248.3393."
-  },
-  {
-    "id": "snap-2026-09-30-1814et",
-    "date": "2026-09-30",
-    "zec": 0.68614605,
-    "hype": 48.425356602,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1413.9,
-      "hype": 90.92,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 970.141900095,
-      "hype": 4402.833422253841,
-      "total": 5372.975322348841
-    },
-    "savedAt": "2026-09-30 22:14 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6861\u21920.6861; HYPE 48.3393\u219248.4254."
-  },
-  {
-    "id": "snap-2026-10-01-0916et",
-    "date": "2026-10-01",
-    "zec": 0.73500352,
-    "hype": 48.575269853,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1383.3725,
-      "hype": 88.84,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1016.7836569712,
-      "hype": 4315.42697374052,
-      "total": 5332.21063071172
-    },
-    "savedAt": "2026-10-01 13:16 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6861\u21920.7350; HYPE 48.4254\u219248.5753."
-  },
-  {
-    "id": "snap-2026-10-01-1815et",
-    "date": "2026-10-01",
-    "zec": 0.75740802,
-    "hype": 46.366516881,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1323.6975,
-      "hype": 87.075,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1002.57910255395,
-      "hype": 4037.3644574130753,
-      "total": 5039.943559967025
-    },
-    "savedAt": "2026-10-01 22:15 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.7350\u21920.7574; HYPE 48.5753\u219246.3665."
-  },
-  {
-    "id": "snap-2026-10-02-0901et",
-    "date": "2026-10-02",
-    "zec": 0.078340655,
-    "hype": 46.53653559,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1390.11,
-      "hype": 90.935,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 108.90212792204998,
-      "hype": 4231.79986387665,
-      "total": 4340.7019917987
-    },
-    "savedAt": "2026-10-02 13:01 UTC",
-    "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.7574\u21920.0783; HYPE 46.3665\u219246.5365."
-  },
-  {
-    "id": "snap-2026-10-02-0917et",
-    "date": "2026-10-02",
-    "zec": 0.078340655,
-    "hype": 46.53653559,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1387.9275,
-      "hype": 91.335,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 108.73114944251249,
-      "hype": 4250.41447811265,
-      "total": 4359.145627555162
-    },
-    "savedAt": "2026-10-02 13:17 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.0783\u21920.0783; HYPE 46.5365\u219246.5365."
-  },
-  {
-    "id": "snap-2026-10-02-1816et",
-    "date": "2026-10-02",
-    "zec": 0.84375932,
-    "hype": 46.672074688,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1281.1,
-      "hype": 86.29,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1080.940064852,
-      "hype": 4027.3333248275203,
-      "total": 5108.27338967952
-    },
-    "savedAt": "2026-10-02 22:16 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.0783\u21920.8438; HYPE 46.5365\u219246.6721."
-  },
-  {
-    "id": "snap-2026-10-03-0912et",
-    "date": "2026-10-03",
-    "zec": 0.88916868,
-    "hype": 46.764263462,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1307.8275,
-      "hype": 88.5525,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1162.8792518427001,
-      "hype": 4141.092440218755,
-      "total": 5303.971692061455
-    },
-    "savedAt": "2026-10-03 13:12 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.8438\u21920.8892; HYPE 46.6721\u219246.7643."
-  },
-  {
-    "id": "snap-2026-10-03-1815et",
-    "date": "2026-10-03",
-    "zec": 0.90831152,
-    "hype": 46.863677756,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1310.075,
-      "hype": 89.65,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1189.956214564,
-      "hype": 4201.328710825401,
-      "total": 5391.284925389401
-    },
-    "savedAt": "2026-10-03 22:15 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.8892\u21920.9083; HYPE 46.7643\u219246.8637."
-  },
-  {
-    "id": "snap-2026-10-04-0910et",
-    "date": "2026-10-04",
-    "zec": 0.92692859,
-    "hype": 46.91901791,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1329.49,
-      "hype": 90.215,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1232.3422911191,
-      "hype": 4232.79920075065,
-      "total": 5465.14149186975
-    },
-    "savedAt": "2026-10-04 13:10 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9083\u21920.9269; HYPE 46.8637\u219246.9190."
-  },
-  {
-    "id": "snap-2026-10-04-1807et",
-    "date": "2026-10-04",
-    "zec": 0.95155114,
-    "hype": 46.963834441,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1348.1625,
-      "hype": 91.005,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1282.84556378025,
-      "hype": 4273.943753303205,
-      "total": 5556.789317083455
-    },
-    "savedAt": "2026-10-04 22:07 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9269\u21920.9516; HYPE 46.9190\u219246.9638."
-  },
-  {
-    "id": "snap-2026-10-05-0914et",
-    "date": "2026-10-05",
-    "zec": 0.97536368,
-    "hype": 47.11737405,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1327.74,
-      "hype": 92.16,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1295.0293724832,
-      "hype": 4342.337192448,
-      "total": 5637.3665649312
-    },
-    "savedAt": "2026-10-05 13:14 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9516\u21920.9754; HYPE 46.9638\u219247.1174."
-  },
-  {
-    "id": "snap-2026-10-05-1813et",
-    "date": "2026-10-05",
-    "zec": 0.97536368,
-    "hype": 47.166661266,
-    "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1352.3049999999998,
-      "hype": 95.16499999999999,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1318.9891812823998,
-      "hype": 4488.61531937889,
-      "total": 5807.604500661289
-    },
-    "savedAt": "2026-10-05 22:13 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9754\u21920.9754 (unchanged since morning); HYPE 47.1174\u219247.1667."
-  },
-  {
-    "id": "snap-2026-10-06-0913et",
-    "date": "2026-10-06",
-    "zec": 1.02940445,
-    "hype": 47.370361069,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1369.31,
-      "hype": 92.865,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1409.5738074294998,
-      "hype": 4399.048580672685,
-      "total": 5808.622388102184
-    },
-    "savedAt": "2026-10-06 13:13 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9754\u21921.0294; HYPE 47.1667\u219247.3704."
-  },
-  {
-    "id": "snap-2026-10-06-1811et",
-    "date": "2026-10-06",
-    "zec": 1.05700409,
-    "hype": 47.527273647,
-    "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com (mainnet-beta 429)",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1347.955,
-      "hype": 91.735,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1424.79394813595,
-      "hype": 4359.914448007545,
-      "total": 5784.708396143495
-    },
-    "savedAt": "2026-10-06 22:11 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0294\u21921.0570; HYPE 47.3704\u219247.5273."
-  },
-  {
-    "id": "snap-2026-10-07-0918et",
-    "date": "2026-10-07",
-    "zec": 1.05700409,
-    "hype": 47.605558002,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1319.72,
-      "hype": 88.935,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1394.9494376548,
-      "hype": 4233.80030090787,
-      "total": 5628.74973856267
-    },
-    "savedAt": "2026-10-07 13:18 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0570\u21921.0570; HYPE 47.5273\u219247.6056."
-  },
-  {
-    "id": "snap-2026-10-07-1809et",
-    "date": "2026-10-07",
-    "zec": 1.08464434,
-    "hype": 47.605558002,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1312.9375,
-      "hype": 87.495,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1424.0702281487502,
-      "hype": 4165.24829738499,
-      "total": 5589.31852553374
-    },
-    "savedAt": "2026-10-07 22:09 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0570\u21921.0846; HYPE 47.6056\u219247.6056."
-  },
-  {
-    "id": "snap-2026-10-08-0924et",
-    "date": "2026-10-08",
-    "zec": 1.11327425,
-    "hype": 47.730825849,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1215.435,
-      "hype": 85.73750000000001,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1353.1124880487498,
-      "hype": 4092.3216812286378,
-      "total": 5445.434169277388
-    },
-    "savedAt": "2026-10-08 13:24 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0846\u21921.1133; HYPE 47.6056\u219247.7308."
-  },
-  {
-    "id": "snap-2026-10-09-0930et",
-    "date": "2026-10-09",
-    "zec": 1.16447266,
-    "hype": 47.795296527,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1223.485,
-      "hype": 85.365,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1424.7148324200998,
-      "hype": 4080.0454880273546,
-      "total": 5504.760320447454
-    },
-    "savedAt": "2026-10-09 13:30 UTC",
-    "note": "Friday yield check-in auto snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1133\u21921.1645; HYPE 47.7308\u219247.7953."
-  },
-  {
-    "id": "snap-2026-10-09-0935et",
-    "date": "2026-10-09",
-    "zec": 1.16447266,
-    "hype": 47.795296527,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1218.06,
-      "hype": 85.02,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1418.3975682395999,
-      "hype": 4063.55611072554,
-      "total": 5481.953678965139
-    },
-    "savedAt": "2026-10-09 13:35 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1645\u21921.1645; HYPE 47.7953\u219247.7953."
-  },
-  {
-    "id": "snap-2026-10-09-1816et",
-    "date": "2026-10-09",
-    "zec": 1.16447266,
-    "hype": 47.853759681,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1207.385,
-      "hype": 83.93,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1405.9668225941,
-      "hype": 4016.3660500263304,
-      "total": 5422.332872620431
-    },
-    "savedAt": "2026-10-09 22:16 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1645\u21921.1645; HYPE 47.7953\u219247.8538."
-  },
-  {
-    "id": "snap-2026-10-10-0904et",
-    "date": "2026-10-10",
-    "zec": 1.16447266,
-    "hype": 47.853759681,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1227.5375,
-      "hype": 84.335,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1429.4338578747497,
-      "hype": 4035.7468226971346,
-      "total": 5465.180680571884
-    },
-    "savedAt": "2026-10-10 13:04 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1645\u21921.1645; HYPE 47.8538\u219247.8538."
-  },
-  {
-    "id": "snap-2026-10-10-1811et",
-    "date": "2026-10-10",
-    "zec": 1.1910589,
-    "hype": 47.916839752,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1223.4425,
-      "hype": 85.445,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1457.19207826325,
-      "hype": 4094.2543726096396,
-      "total": 5551.44645087289
-    },
-    "savedAt": "2026-10-10 22:11 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1645\u21921.1911; HYPE 47.8538\u219247.9168."
-  },
-  {
-    "id": "snap-2026-10-11-0906et",
-    "date": "2026-10-11",
-    "zec": 1.1910589,
-    "hype": 47.98674065,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1230.78,
-      "hype": 85.12,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1465.931472942,
-      "hype": 4084.6313641280003,
-      "total": 5550.562837070001
-    },
-    "savedAt": "2026-10-11 13:06 UTC",
-    "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1911\u21921.1911; HYPE 47.9168\u219247.9867."
-  },
-  {
-    "id": "snap-2026-10-11-1814et",
-    "date": "2026-10-11",
-    "zec": 1.1910589,
-    "hype": 48.046906537,
-    "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
-    "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
-    "spots": {
-      "zec": 1249.83,
-      "hype": 86.02,
-      "source": "Coinbase spot"
-    },
-    "usd": {
-      "zec": 1488.621144987,
-      "hype": 4132.994900312739,
-      "total": 5621.616045299739
-    },
-    "savedAt": "2026-10-11 22:14 UTC",
-    "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1911\u21921.1911; HYPE 47.9867\u219248.0469."
-  }
-];
+    {
+      "id": "auto-2026-09-13",
+      "date": "2026-09-13",
+      "zec": 1.95904728,
+      "hype": 25.433734934,
+      "source": "auto-ata-getAccountInfo",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1090.9460955176553,
+        "hype": 78.310285878
+      },
+      "usd": {
+        "zec": 2137.214981050483,
+        "hype": 1991.7230536268155,
+        "total": 4128.938034677299
+      },
+      "savedAt": "2026-09-13 15:30 UTC",
+      "note": "ATAs under Phantom \u2014 not empty wallets. HYPE mint 98sMh\u2026 Mh5g; ZEC mint A7bd\u2026 QXaS."
+    },
+    {
+      "id": "snap-2026-09-14-1336et",
+      "date": "2026-09-14",
+      "zec": 2.06481493,
+      "hype": 26.612830152,
+      "source": "manual-catchup via https://solana-rpc.publicnode.com",
+      "spots": {
+        "zec": 1138.1,
+        "hype": 80.155,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 2349.9658718329997,
+        "hype": 2133.1514008335603,
+        "total": 4483.11727266656
+      },
+      "savedAt": "2026-09-14 13:38 UTC",
+      "note": "Catch-up after missed morning; weekends enabled"
+    },
+    {
+      "id": "snap-2026-09-14-1829et",
+      "date": "2026-09-14",
+      "zec": 2.10516896,
+      "hype": 27.317656303,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1176.25,
+        "hype": 80.2,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 2476.2049892,
+        "hype": 2190.8760355006,
+        "total": 4667.0810247006
+      },
+      "savedAt": "2026-09-14 22:29 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-15-1011et",
+      "date": "2026-09-15",
+      "zec": 2.16546862,
+      "hype": 28.566283277,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1131.85,
+        "hype": 78.67,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 2450.985657547,
+        "hype": 2247.3095054015903,
+        "total": 4698.295162948591
+      },
+      "savedAt": "2026-09-15 14:11 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-15-1823et",
+      "date": "2026-09-15",
+      "zec": 2.187194,
+      "hype": 30.627677275,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1101.1,
+        "hype": 76.49,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 2408.3193134,
+        "hype": 2342.71103476475,
+        "total": 4751.03034816475
+      },
+      "savedAt": "2026-09-15 22:23 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-16-0931et",
+      "date": "2026-09-16",
+      "zec": 2.22299882,
+      "hype": 31.729386293,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1233.29,
+        "hype": 77.92,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 2741.6022147178,
+        "hype": 2472.3537799505602,
+        "total": 5213.95599466836
+      },
+      "savedAt": "2026-09-16 13:31 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-16-1806et",
+      "date": "2026-09-16",
+      "zec": 2.27987966,
+      "hype": 32.50713742,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1312.13,
+        "hype": 77.985,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 2991.4984982758006,
+        "hype": 2535.0691116987,
+        "total": 5526.567609974501
+      },
+      "savedAt": "2026-09-16 22:06 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-17-093435et",
+      "date": "2026-09-17",
+      "zec": 2.33449173,
+      "hype": 33.502622894,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1356.795,
+        "hype": 81.765,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 3167.42670680535,
+        "hype": 2739.34196092791,
+        "total": 5906.76866773326
+      },
+      "savedAt": "2026-09-17 13:34 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-17-1824et",
+      "date": "2026-09-17",
+      "zec": 2.37603701,
+      "hype": 34.830272599,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1467.13,
+        "hype": 83.125,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 3485.9551784813,
+        "hype": 2895.2664097918746,
+        "total": 6381.221588273174
+      },
+      "savedAt": "2026-09-17 22:24 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-18-0923et",
+      "date": "2026-09-18",
+      "zec": 2.43255272,
+      "hype": 35.742047954,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1470.585,
+        "hype": 91.275,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 3577.2755417412,
+        "hype": 3262.35542700135,
+        "total": 6839.63096874255
+      },
+      "savedAt": "2026-09-18 13:23 UTC",
+      "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-19-0909et",
+      "date": "2026-09-19",
+      "zec": 2.54620248,
+      "hype": 37.425823957,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1532.565,
+        "hype": 92.22,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 3902.2208037612,
+        "hype": 3451.40948531454,
+        "total": 7353.63028907574
+      },
+      "savedAt": "2026-09-19 13:09 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded"
+    },
+    {
+      "id": "snap-2026-09-19-1802et",
+      "date": "2026-09-19",
+      "zec": 0.0187083,
+      "hype": 38.051286805,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com (publicnode indexed methods gated)",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1469.9,
+        "hype": 91.145,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 27.499330170000004,
+        "hype": 3468.1845358417245,
+        "total": 3495.6838660117246
+      },
+      "savedAt": "2026-09-19 22:02 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ALERT: ZEC ATA emptied ~2026-09-19 17:47 UTC (2.5649\u2192closed) then reconstituted with dust 0.0187 at 18:01 UTC (solscan 9Bjne3SKwZDM\u2026); HYPE continued accruing."
+    },
+    {
+      "id": "snap-2026-09-20-0906et",
+      "date": "2026-09-20",
+      "zec": 0.05801905,
+      "hype": 38.491386477,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1456.34,
+        "hype": 91.27,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 84.495463277,
+        "hype": 3513.1088437557896,
+        "total": 3597.6043070327896
+      },
+      "savedAt": "2026-09-20 13:06 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still near-dust after Sep 19 drain (0.0187\u21920.0580); HYPE still accruing."
+    },
+    {
+      "id": "snap-2026-09-20-1807et",
+      "date": "2026-09-20",
+      "zec": 0.0782405,
+      "hype": 38.980254127,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1486.15,
+        "hype": 92.83,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 116.27711907500002,
+        "hype": 3618.53699060941,
+        "total": 3734.81410968441
+      },
+      "savedAt": "2026-09-20 22:07 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still near-dust after Sep 19 drain (recovering slowly); HYPE still accruing."
+    },
+    {
+      "id": "snap-2026-09-21-0941et",
+      "date": "2026-09-21",
+      "zec": 0.11506907,
+      "hype": 39.774886009,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1535.105,
+        "hype": 94.64,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 176.64310470235,
+        "hype": 3764.29521189176,
+        "total": 3940.93831659411
+      },
+      "savedAt": "2026-09-21 13:41 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.0782\u21920.1151); HYPE still accruing."
+    },
+    {
+      "id": "snap-2026-09-21-1827et",
+      "date": "2026-09-21",
+      "zec": 0.17556307,
+      "hype": 40.142964626,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1463.055,
+        "hype": 93.17,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 256.85842737884997,
+        "hype": 3740.1200142044204,
+        "total": 3996.9784415832705
+      },
+      "savedAt": "2026-09-21 22:27 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.1151\u21920.1756); HYPE still accruing."
+    },
+    {
+      "id": "snap-2026-09-22-0921et",
+      "date": "2026-09-22",
+      "zec": 0.21314554,
+      "hype": 40.925667037,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1519.7075,
+        "hype": 95.3,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 323.91887572955,
+        "hype": 3900.2160686260995,
+        "total": 4224.134944355649
+      },
+      "savedAt": "2026-09-22 13:21 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA still recovering from Sep 19 drain (0.1756\u21920.2131); HYPE still accruing."
+    },
+    {
+      "id": "snap-2026-09-22-1825et",
+      "date": "2026-09-22",
+      "zec": 0.21314554,
+      "hype": 41.249077068,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1527.455,
+        "hype": 96.95,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 325.5702208007,
+        "hype": 3999.0980217426,
+        "total": 4324.6682425433
+      },
+      "savedAt": "2026-09-22 22:25 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA flat vs morning (0.2131\u21920.2131); HYPE still accruing (40.9257\u219241.2491)."
+    },
+    {
+      "id": "snap-2026-09-23-0947et",
+      "date": "2026-09-23",
+      "zec": 0.26863628,
+      "hype": 42.8685798,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1638.6625,
+        "hype": 95.4375,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 440.2041981755,
+        "hype": 4091.2700846625,
+        "total": 4531.474282837999
+      },
+      "savedAt": "2026-09-23 13:47 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.2131\u21920.2686; HYPE still accruing (41.2491\u219242.8686)."
+    },
+    {
+      "id": "snap-2026-09-23-1825et",
+      "date": "2026-09-23",
+      "zec": 0.30629121,
+      "hype": 43.067369673,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1513.5175,
+        "hype": 93.86,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 463.57710643117497,
+        "hype": 4042.3033175077803,
+        "total": 4505.880423938956
+      },
+      "savedAt": "2026-09-23 22:25 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.2686\u21920.3063; HYPE still accruing (42.8686\u219243.0674)."
+    },
+    {
+      "id": "snap-2026-09-24-0926et",
+      "date": "2026-09-24",
+      "zec": 0.32516891,
+      "hype": 43.823265103,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1505.585,
+        "hype": 91.925,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 489.56943336234997,
+        "hype": 4028.4536445932745,
+        "total": 4518.023077955624
+      },
+      "savedAt": "2026-09-24 13:26 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3063\u21920.3252; HYPE still accruing (43.0674\u219243.8233)."
+    },
+    {
+      "id": "snap-2026-09-24-1808et",
+      "date": "2026-09-24",
+      "zec": 0.34697412,
+      "hype": 44.184078765,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1539.685,
+        "hype": 92.42,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 534.2308479522,
+        "hype": 4083.4925594613005,
+        "total": 4617.7234074135
+      },
+      "savedAt": "2026-09-24 22:08 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3252\u21920.3470; HYPE still accruing (43.8233\u219244.1841)."
+    },
+    {
+      "id": "snap-2026-09-25-0906et",
+      "date": "2026-09-25",
+      "zec": 0.3664108,
+      "hype": 44.675096005,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1622.1975,
+        "hype": 93.6475,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 594.390683733,
+        "hype": 4183.711053128237,
+        "total": 4778.1017368612365
+      },
+      "savedAt": "2026-09-25 13:06 UTC",
+      "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3470\u21920.3664; HYPE 44.1841\u219244.6751."
+    },
+    {
+      "id": "snap-2026-09-25-1814et",
+      "date": "2026-09-25",
+      "zec": 0.4034635,
+      "hype": 45.229548689,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1532.8375,
+        "hype": 91.8925,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 618.44398268125,
+        "hype": 4156.256302903932,
+        "total": 4774.700285585182
+      },
+      "savedAt": "2026-09-25 22:14 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.3664\u21920.4035; HYPE 44.6751\u219245.2295."
+    },
+    {
+      "id": "snap-2026-09-26-0908et",
+      "date": "2026-09-26",
+      "zec": 0.47344977,
+      "hype": 45.694294384,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1544.5425,
+        "hype": 92.195,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 731.263291380225,
+        "hype": 4212.78547073288,
+        "total": 4944.048762113105
+      },
+      "savedAt": "2026-09-26 13:08 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4035\u21920.4734; HYPE 45.2295\u219245.6943."
+    },
+    {
+      "id": "snap-2026-09-26-1812et",
+      "date": "2026-09-26",
+      "zec": 0.49865395,
+      "hype": 45.958954101,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1664.66,
+        "hype": 92.195,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 830.089284407,
+        "hype": 4237.185773341695,
+        "total": 5067.275057748695
+      },
+      "savedAt": "2026-09-26 22:12 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4734\u21920.4987; HYPE 45.6943\u219245.9590."
+    },
+    {
+      "id": "snap-2026-09-27-0906et",
+      "date": "2026-09-27",
+      "zec": 0.52428858,
+      "hype": 46.4279447,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1646.18,
+        "hype": 92.105,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 863.0733746244,
+        "hype": 4276.2458465935,
+        "total": 5139.3192212179
+      },
+      "savedAt": "2026-09-27 13:06 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.4987\u21920.5243; HYPE 45.9590\u219246.4279."
+    },
+    {
+      "id": "snap-2026-09-27-1810et",
+      "date": "2026-09-27",
+      "zec": 0.54847717,
+      "hype": 46.747243666,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1590.11,
+        "hype": 91.305,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 872.1390327886999,
+        "hype": 4268.25708292413,
+        "total": 5140.396115712831
+      },
+      "savedAt": "2026-09-27 22:10 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5243\u21920.5485; HYPE 46.4279\u219246.7472."
+    },
+    {
+      "id": "snap-2026-09-28-0923et",
+      "date": "2026-09-28",
+      "zec": 0.57319874,
+      "hype": 47.042240108,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1593.205,
+        "hype": 89.585,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 913.2230985617,
+        "hype": 4214.27908007518,
+        "total": 5127.50217863688
+      },
+      "savedAt": "2026-09-28 13:23 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5485\u21920.5732; HYPE 46.7472\u219247.0422."
+    },
+    {
+      "id": "snap-2026-09-28-1816et",
+      "date": "2026-09-28",
+      "zec": 0.57319874,
+      "hype": 47.484867713,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1459.9875,
+        "hype": 86.825,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 836.86299541575,
+        "hype": 4122.873639181225,
+        "total": 4959.736634596975
+      },
+      "savedAt": "2026-09-28 22:16 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5732\u21920.5732; HYPE 47.0422\u219247.4849."
+    },
+    {
+      "id": "snap-2026-09-29-0915et",
+      "date": "2026-09-29",
+      "zec": 0.60080847,
+      "hype": 47.863208447,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1445.73,
+        "hype": 88.47,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 868.6068293331001,
+        "hype": 4234.45805130609,
+        "total": 5103.06488063919
+      },
+      "savedAt": "2026-09-29 13:15 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.5732\u21920.6008; HYPE 47.4849\u219247.8632."
+    },
+    {
+      "id": "snap-2026-09-29-1815et",
+      "date": "2026-09-29",
+      "zec": 0.62972761,
+      "hype": 48.145208542,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1417.905,
+        "hype": 86.2775,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 892.89392685705,
+        "hype": 4153.848229982405,
+        "total": 5046.742156839456
+      },
+      "savedAt": "2026-09-29 22:15 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6008\u21920.6297; HYPE 47.8632\u219248.1452."
+    },
+    {
+      "id": "snap-2026-09-30-0913et",
+      "date": "2026-09-30",
+      "zec": 0.68614605,
+      "hype": 48.339289844,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1478.7849999999999,
+        "hype": 87.805,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1014.6624865492498,
+        "hype": 4244.43134475242,
+        "total": 5259.0938313016695
+      },
+      "savedAt": "2026-09-30 13:13 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6297\u21920.6861; HYPE 48.1452\u219248.3393."
+    },
+    {
+      "id": "snap-2026-09-30-1814et",
+      "date": "2026-09-30",
+      "zec": 0.68614605,
+      "hype": 48.425356602,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1413.9,
+        "hype": 90.92,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 970.141900095,
+        "hype": 4402.833422253841,
+        "total": 5372.975322348841
+      },
+      "savedAt": "2026-09-30 22:14 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6861\u21920.6861; HYPE 48.3393\u219248.4254."
+    },
+    {
+      "id": "snap-2026-10-01-0916et",
+      "date": "2026-10-01",
+      "zec": 0.73500352,
+      "hype": 48.575269853,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1383.3725,
+        "hype": 88.84,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1016.7836569712,
+        "hype": 4315.42697374052,
+        "total": 5332.21063071172
+      },
+      "savedAt": "2026-10-01 13:16 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.6861\u21920.7350; HYPE 48.4254\u219248.5753."
+    },
+    {
+      "id": "snap-2026-10-01-1815et",
+      "date": "2026-10-01",
+      "zec": 0.75740802,
+      "hype": 46.366516881,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1323.6975,
+        "hype": 87.075,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1002.57910255395,
+        "hype": 4037.3644574130753,
+        "total": 5039.943559967025
+      },
+      "savedAt": "2026-10-01 22:15 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.7350\u21920.7574; HYPE 48.5753\u219246.3665."
+    },
+    {
+      "id": "snap-2026-10-02-0901et",
+      "date": "2026-10-02",
+      "zec": 0.078340655,
+      "hype": 46.53653559,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1390.11,
+        "hype": 90.935,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 108.90212792204998,
+        "hype": 4231.79986387665,
+        "total": 4340.7019917987
+      },
+      "savedAt": "2026-10-02 13:01 UTC",
+      "note": "Friday yield check-in (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.7574\u21920.0783; HYPE 46.3665\u219246.5365."
+    },
+    {
+      "id": "snap-2026-10-02-0917et",
+      "date": "2026-10-02",
+      "zec": 0.078340655,
+      "hype": 46.53653559,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1387.9275,
+        "hype": 91.335,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 108.73114944251249,
+        "hype": 4250.41447811265,
+        "total": 4359.145627555162
+      },
+      "savedAt": "2026-10-02 13:17 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.0783\u21920.0783; HYPE 46.5365\u219246.5365."
+    },
+    {
+      "id": "snap-2026-10-02-1816et",
+      "date": "2026-10-02",
+      "zec": 0.84375932,
+      "hype": 46.672074688,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1281.1,
+        "hype": 86.29,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1080.940064852,
+        "hype": 4027.3333248275203,
+        "total": 5108.27338967952
+      },
+      "savedAt": "2026-10-02 22:16 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.0783\u21920.8438; HYPE 46.5365\u219246.6721."
+    },
+    {
+      "id": "snap-2026-10-03-0912et",
+      "date": "2026-10-03",
+      "zec": 0.88916868,
+      "hype": 46.764263462,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1307.8275,
+        "hype": 88.5525,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1162.8792518427001,
+        "hype": 4141.092440218755,
+        "total": 5303.971692061455
+      },
+      "savedAt": "2026-10-03 13:12 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.8438\u21920.8892; HYPE 46.6721\u219246.7643."
+    },
+    {
+      "id": "snap-2026-10-03-1815et",
+      "date": "2026-10-03",
+      "zec": 0.90831152,
+      "hype": 46.863677756,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1310.075,
+        "hype": 89.65,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1189.956214564,
+        "hype": 4201.328710825401,
+        "total": 5391.284925389401
+      },
+      "savedAt": "2026-10-03 22:15 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.8892\u21920.9083; HYPE 46.7643\u219246.8637."
+    },
+    {
+      "id": "snap-2026-10-04-0910et",
+      "date": "2026-10-04",
+      "zec": 0.92692859,
+      "hype": 46.91901791,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1329.49,
+        "hype": 90.215,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1232.3422911191,
+        "hype": 4232.79920075065,
+        "total": 5465.14149186975
+      },
+      "savedAt": "2026-10-04 13:10 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9083\u21920.9269; HYPE 46.8637\u219246.9190."
+    },
+    {
+      "id": "snap-2026-10-04-1807et",
+      "date": "2026-10-04",
+      "zec": 0.95155114,
+      "hype": 46.963834441,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1348.1625,
+        "hype": 91.005,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1282.84556378025,
+        "hype": 4273.943753303205,
+        "total": 5556.789317083455
+      },
+      "savedAt": "2026-10-04 22:07 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9269\u21920.9516; HYPE 46.9190\u219246.9638."
+    },
+    {
+      "id": "snap-2026-10-05-0914et",
+      "date": "2026-10-05",
+      "zec": 0.97536368,
+      "hype": 47.11737405,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1327.74,
+        "hype": 92.16,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1295.0293724832,
+        "hype": 4342.337192448,
+        "total": 5637.3665649312
+      },
+      "savedAt": "2026-10-05 13:14 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9516\u21920.9754; HYPE 46.9638\u219247.1174."
+    },
+    {
+      "id": "snap-2026-10-05-1813et",
+      "date": "2026-10-05",
+      "zec": 0.97536368,
+      "hype": 47.166661266,
+      "source": "auto-ata-getAccountInfo via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1352.3049999999998,
+        "hype": 95.16499999999999,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1318.9891812823998,
+        "hype": 4488.61531937889,
+        "total": 5807.604500661289
+      },
+      "savedAt": "2026-10-05 22:13 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9754\u21920.9754 (unchanged since morning); HYPE 47.1174\u219247.1667."
+    },
+    {
+      "id": "snap-2026-10-06-0913et",
+      "date": "2026-10-06",
+      "zec": 1.02940445,
+      "hype": 47.370361069,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1369.31,
+        "hype": 92.865,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1409.5738074294998,
+        "hype": 4399.048580672685,
+        "total": 5808.622388102184
+      },
+      "savedAt": "2026-10-06 13:13 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 0.9754\u21921.0294; HYPE 47.1667\u219247.3704."
+    },
+    {
+      "id": "snap-2026-10-06-1811et",
+      "date": "2026-10-06",
+      "zec": 1.05700409,
+      "hype": 47.527273647,
+      "source": "auto-ata-getAccountInfo via https://solana-rpc.publicnode.com (mainnet-beta 429)",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1347.955,
+        "hype": 91.735,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1424.79394813595,
+        "hype": 4359.914448007545,
+        "total": 5784.708396143495
+      },
+      "savedAt": "2026-10-06 22:11 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0294\u21921.0570; HYPE 47.3704\u219247.5273."
+    },
+    {
+      "id": "snap-2026-10-07-0918et",
+      "date": "2026-10-07",
+      "zec": 1.05700409,
+      "hype": 47.605558002,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1319.72,
+        "hype": 88.935,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1394.9494376548,
+        "hype": 4233.80030090787,
+        "total": 5628.74973856267
+      },
+      "savedAt": "2026-10-07 13:18 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0570\u21921.0570; HYPE 47.5273\u219247.6056."
+    },
+    {
+      "id": "snap-2026-10-07-1809et",
+      "date": "2026-10-07",
+      "zec": 1.08464434,
+      "hype": 47.605558002,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1312.9375,
+        "hype": 87.495,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1424.0702281487502,
+        "hype": 4165.24829738499,
+        "total": 5589.31852553374
+      },
+      "savedAt": "2026-10-07 22:09 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0570\u21921.0846; HYPE 47.6056\u219247.6056."
+    },
+    {
+      "id": "snap-2026-10-08-0924et",
+      "date": "2026-10-08",
+      "zec": 1.11327425,
+      "hype": 47.730825849,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1215.435,
+        "hype": 85.73750000000001,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1353.1124880487498,
+        "hype": 4092.3216812286378,
+        "total": 5445.434169277388
+      },
+      "savedAt": "2026-10-08 13:24 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.0846\u21921.1133; HYPE 47.6056\u219247.7308."
+    },
+    {
+      "id": "snap-2026-10-09-0930et",
+      "date": "2026-10-09",
+      "zec": 1.16447266,
+      "hype": 47.795296527,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1223.485,
+        "hype": 85.365,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1424.7148324200998,
+        "hype": 4080.0454880273546,
+        "total": 5504.760320447454
+      },
+      "savedAt": "2026-10-09 13:30 UTC",
+      "note": "Friday yield check-in auto snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1133\u21921.1645; HYPE 47.7308\u219247.7953."
+    },
+    {
+      "id": "snap-2026-10-09-0935et",
+      "date": "2026-10-09",
+      "zec": 1.16447266,
+      "hype": 47.795296527,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1218.06,
+        "hype": 85.02,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1418.3975682395999,
+        "hype": 4063.55611072554,
+        "total": 5481.953678965139
+      },
+      "savedAt": "2026-10-09 13:35 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1645\u21921.1645; HYPE 47.7953\u219247.7953."
+    },
+    {
+      "id": "snap-2026-10-09-1816et",
+      "date": "2026-10-09",
+      "zec": 1.16447266,
+      "hype": 47.853759681,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1207.385,
+        "hype": 83.93,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1405.9668225941,
+        "hype": 4016.3660500263304,
+        "total": 5422.332872620431
+      },
+      "savedAt": "2026-10-09 22:16 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1645\u21921.1645; HYPE 47.7953\u219247.8538."
+    },
+    {
+      "id": "snap-2026-10-10-0904et",
+      "date": "2026-10-10",
+      "zec": 1.16447266,
+      "hype": 47.853759681,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1227.5375,
+        "hype": 84.335,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1429.4338578747497,
+        "hype": 4035.7468226971346,
+        "total": 5465.180680571884
+      },
+      "savedAt": "2026-10-10 13:04 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1645\u21921.1645; HYPE 47.8538\u219247.8538."
+    },
+    {
+      "id": "snap-2026-10-10-1811et",
+      "date": "2026-10-10",
+      "zec": 1.1910589,
+      "hype": 47.916839752,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1223.4425,
+        "hype": 85.445,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1457.19207826325,
+        "hype": 4094.2543726096396,
+        "total": 5551.44645087289
+      },
+      "savedAt": "2026-10-10 22:11 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1645\u21921.1911; HYPE 47.8538\u219247.9168."
+    },
+    {
+      "id": "snap-2026-10-11-0906et",
+      "date": "2026-10-11",
+      "zec": 1.1910589,
+      "hype": 47.98674065,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1230.78,
+        "hype": 85.12,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1465.931472942,
+        "hype": 4084.6313641280003,
+        "total": 5550.562837070001
+      },
+      "savedAt": "2026-10-11 13:06 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1911\u21921.1911; HYPE 47.9168\u219247.9867."
+    },
+    {
+      "id": "snap-2026-10-11-1814et",
+      "date": "2026-10-11",
+      "zec": 1.1910589,
+      "hype": 48.046906537,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1249.83,
+        "hype": 86.02,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1488.621144987,
+        "hype": 4132.994900312739,
+        "total": 5621.616045299739
+      },
+      "savedAt": "2026-10-11 22:14 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1911\u21921.1911; HYPE 47.9867\u219248.0469."
+    },
+    {
+      "id": "snap-2026-10-12-0928et",
+      "date": "2026-10-12",
+      "zec": 1.22095095,
+      "hype": 48.119994054,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1282.94,
+        "hype": 85.31,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1566.406811793,
+        "hype": 4105.11669274674,
+        "total": 5671.52350453974
+      },
+      "savedAt": "2026-10-12 13:28 UTC",
+      "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.1911\u21921.2210; HYPE 48.0469\u219248.1200."
+    }
+  ];
 
   /* Scenario / week-1 constants (must stay between AUTO_ENTRIES and ROWS; the refresh splice must not drop them) */
   const WEEK1_ZEC = 1.62605;
