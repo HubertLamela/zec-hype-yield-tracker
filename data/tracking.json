@@ -1316,13 +1316,33 @@
       },
       "savedAt": "2026-10-15 13:14 UTC",
       "note": "Morning twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.2524\u21921.2524; HYPE 48.3114\u219248.3114."
+    },
+    {
+      "id": "snap-2026-10-15-1806et",
+      "date": "2026-10-15",
+      "zec": 1.25236759,
+      "hype": 48.311399041,
+      "source": "auto-ata-getTokenAccountBalance via https://api.mainnet-beta.solana.com",
+      "owner": "5pEa24BzssBdaRpsubywmFyaNvccgHKakt6m9gC8qCY4",
+      "spots": {
+        "zec": 1238.2075,
+        "hype": 82.4,
+        "source": "Coinbase spot"
+      },
+      "usd": {
+        "zec": 1550.6909426949248,
+        "hype": 3980.8592809784004,
+        "total": 5531.5502236733255
+      },
+      "savedAt": "2026-10-15 22:06 UTC",
+      "note": "Evening twice-daily totals snap (ET); ATAs only in yield; cold ZEC excluded. ZEC ATA 1.2524\u21921.2524; HYPE 48.3114\u219248.3114."
     }
   ],
   "liveSpots": {
-    "zec": 1095.45,
-    "hype": 78.245,
+    "zec": 1238.2075,
+    "hype": 82.4,
     "source": "Coinbase spot (buy/sell mid)",
-    "fetchedAt": "2026-10-15 13:14 UTC"
+    "fetchedAt": "2026-10-15 22:06 UTC"
   },
   "autoPopulate": {
     "enabled": true,
@@ -1340,7 +1360,7 @@
     "balance": 59.9999774,
     "includeInYieldTotals": false,
     "role": "cold-reserve",
-    "updatedAt": "2026-10-15 13:14 UTC",
+    "updatedAt": "2026-10-15 22:06 UTC",
     "source": "zcashexplorer mainnet HTML scrape (Balance 59.9999774 ZEC)"
   },
   "features": {
